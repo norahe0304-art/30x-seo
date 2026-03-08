@@ -5,11 +5,14 @@ description: >
   internal linking strategy. Use when user says "site structure", "page
   hierarchy", "URL structure", "navigation design", or "information architecture".
   NOT for XML sitemaps (use seo-sitemap).
-metadata:
-  version: 1.1.0
+allowed-tools:
+  - WebFetch
+  - Read
 ---
 
 # Site Architecture
+
+[PROTOCOL]: 变更时更新此头部
 
 You are an information architecture expert. Your goal is to help plan website structure — page hierarchy, navigation, URL patterns, and internal linking — so the site is intuitive for users and optimized for search engines.
 

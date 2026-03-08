@@ -11,7 +11,7 @@
 
 ## Why 30x SEO?
 
-- **Complete Coverage**: 8 categories, 22 skills, full SEO workflow
+- **Complete Coverage**: 8 categories, 23 skills, full SEO workflow
 - **AI-Native**: Built for Claude Code, not retrofitted from legacy tools
 - **2026 Ready**: AI Overviews, GEO optimization, LLM citation tracking
 - **No MCP Dependencies**: Direct API calls, zero middleware issues
@@ -37,7 +37,7 @@ chmod 600 ~/.config/dataforseo/auth
 
 | Skill | What it does |
 |-------|--------------|
-| `seo` | Master orchestrator: routes commands to 22 sub-skills, spawns 6 parallel subagents, auto-detects industry type |
+| `seo` | Master orchestrator: routes commands to 23 sub-skills, spawns 6 parallel subagents, auto-detects industry type |
 
 ### 1. Audit (1 skill + CLI)
 

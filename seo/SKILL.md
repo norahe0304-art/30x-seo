@@ -1,7 +1,7 @@
 ---
 name: seo
 description: >
-  Master SEO orchestrator with 21 specialized sub-skills. Comprehensive SEO analysis
+  Master SEO orchestrator with 23 specialized sub-skills. Comprehensive SEO analysis
   for any website or business type. Performs full site audits (squirrelscan 230+ rules,
   parallel subagent delegation), single-page deep analysis, technical SEO checks
   (crawlability, indexability, Core Web Vitals with INP), schema markup, content quality
