@@ -24,7 +24,13 @@ chmod 600 ~/.config/dataforseo/auth
 
 ---
 
-## Skills Overview (8 Categories, 22 Skills)
+## Skills Overview (8 Categories, 22 Skills + 1 Orchestrator)
+
+### Main Orchestrator
+
+| Skill | What it does |
+|-------|--------------|
+| `seo` | Master orchestrator: routes commands to 22 sub-skills, spawns 6 parallel subagents, auto-detects industry type |
 
 ### 1. Audit (1 skill + CLI)
 
