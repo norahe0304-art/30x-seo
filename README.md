@@ -13,7 +13,7 @@
 
 ```bash
 # Clone
-git clone https://github.com/YOUR_USERNAME/30x-seo.git ~/.openclaw/skills/30x-seo
+git clone https://github.com/norahe0304-art/30x-seo.git ~/.openclaw/skills/30x-seo
 
 # Configure DataForSEO (for keywords/backlinks/SERP/AI visibility)
 mkdir -p ~/.config/dataforseo
