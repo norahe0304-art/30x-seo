@@ -1,113 +1,147 @@
 # 30x SEO
 
-21 个 SEO 技能，覆盖技术 SEO、内容优化、关键词研究、外链分析、AI 可见性监控全链路。
+> 21 production-ready SEO skills for Claude Code. Full-stack SEO automation: technical audits, content optimization, keyword research, backlink analysis, and AI visibility monitoring.
 
-## 安装
+## Why 30x SEO?
+
+- **Complete Coverage**: Technical SEO → Content → Keywords → Backlinks → AI Visibility
+- **AI-Native**: Built for Claude Code, not retrofitted from legacy tools
+- **2026 Ready**: AI Overviews, GEO optimization, LLM citation tracking
+- **No MCP Dependencies**: Direct API calls, zero middleware issues
+
+## Quick Start
 
 ```bash
-# 克隆到 skills 目录
-git clone [your-repo-url] ~/.openclaw/skills/30x-seo
+# Clone
+git clone https://github.com/YOUR_USERNAME/30x-seo.git ~/.openclaw/skills/30x-seo
 
-# 配置 DataForSEO（关键词/外链/SERP/AI 可见性）
+# Configure DataForSEO (for keywords/backlinks/SERP/AI visibility)
 mkdir -p ~/.config/dataforseo
-echo "your-base64-credentials" > ~/.config/dataforseo/auth
+echo "YOUR_BASE64_CREDENTIALS" > ~/.config/dataforseo/auth
 chmod 600 ~/.config/dataforseo/auth
 ```
 
-详细配置见 [SETUP-CN.md](SETUP-CN.md)
+**Generate Base64 credentials:**
+```bash
+echo -n "email@example.com:api-password" | base64
+```
 
-## 快速开始
+## Skills Overview
+
+### Technical SEO (8 skills)
+
+| Skill | What it does |
+|-------|--------------|
+| `seo-technical` | 8-category audit: crawlability, indexability, security, URLs, mobile, Core Web Vitals, structured data, JS rendering |
+| `seo-sitemap` | Validate XML sitemaps, detect issues, generate new ones |
+| `seo-hreflang` | Multi-language/region SEO: self-refs, return tags, x-default |
+| `seo-schema` | Detect, validate, generate JSON-LD structured data |
+| `seo-images` | Alt text, formats, sizing, lazy loading, CDN usage |
+| `seo-redirects` | Chains, loops, soft 404s, external leaks |
+| `seo-internal-links` | Orphan pages, click depth, anchor text, link equity |
+| `seo-geo-technical` | AI crawler management: GPTBot, ClaudeBot, llms.txt |
+
+### Content Optimization (8 skills)
+
+| Skill | What it does |
+|-------|--------------|
+| `seo-content-audit` | E-E-A-T scoring + AI citability analysis |
+| `seo-content-brief` | Generate briefs from keyword research |
+| `seo-content-writer` | Writing guidelines for SEO + AI optimization |
+| `seo-content-decay` | Detect declining content, recommend updates |
+| `seo-cannibalization` | Find keyword conflicts between pages |
+| `seo-page` | Deep single-page analysis |
+| `seo-competitor-pages` | Compare against SERP top 10 |
+| `seo-programmatic` | Scale content with quality gates |
+
+### Keywords & SERP (3 skills) — *Requires DataForSEO*
+
+| Skill | What it does |
+|-------|--------------|
+| `seo-keywords` | Ideas, volume, difficulty, intent, trends |
+| `seo-serp` | Live SERP, rankings, historical data, features |
+| `seo-backlinks` | Profile, anchors, toxic links, gap analysis |
+
+### AI Visibility (2 skills) — *Requires DataForSEO*
+
+| Skill | What it does |
+|-------|--------------|
+| `seo-ai-visibility` | Track brand mentions in ChatGPT, Claude, Perplexity, Gemini, Google AI Overview |
+| `seo-plan` | Generate comprehensive SEO strategy |
+
+## Commands
 
 ```bash
-# 全站审计
-/seo audit https://example.com
-
-# 单页分析
-/seo page https://example.com/about
-
-# Schema 检查
+# Technical
+/seo technical https://example.com
 /seo schema https://example.com
+/seo sitemap analyze https://example.com/sitemap.xml
 
-# 关键词研究（需 DataForSEO）
-/seo keywords research "目标关键词"
+# Content
+/seo content-audit https://example.com/page
+/seo content-brief "target keyword"
 
-# AI 可见性监控（需 DataForSEO）
+# Keywords & SERP (DataForSEO required)
+/seo keywords research "seed keyword"
+/seo serp check "keyword"
+/seo backlinks profile example.com
+
+# AI Visibility (DataForSEO required)
 /seo ai-visibility domain example.com
+/seo ai-visibility keyword "best crm software"
 ```
 
-## 命令列表
-
-| 命令 | 说明 |
-|------|------|
-| `/seo audit <url>` | 全站 SEO 审计 |
-| `/seo page <url>` | 单页深度分析 |
-| `/seo technical <url>` | 技术 SEO（8 大类）|
-| `/seo sitemap <url>` | Sitemap 分析 |
-| `/seo sitemap generate` | Sitemap 生成 |
-| `/seo schema <url>` | Schema 检测/生成 |
-| `/seo images <url>` | 图片 SEO |
-| `/seo hreflang <url>` | 多语言 SEO |
-| `/seo internal-links <url>` | 内链分析 |
-| `/seo content-audit <url>` | 内容质量（E-E-A-T + AI 可引用性）|
-| `/seo content-brief <keyword>` | 内容简报生成 |
-| `/seo keywords research <seed>` | 关键词研究 |
-| `/seo keywords difficulty <kw>` | 关键词难度 |
-| `/seo serp check <keyword>` | 实时 SERP |
-| `/seo backlinks profile <domain>` | 外链分析 |
-| `/seo backlinks gap <domains>` | 外链差距 |
-| `/seo ai-visibility domain <d>` | AI 可见性监控 |
-| `/seo plan <url>` | SEO 策略规划 |
-
-## Skills 分类
-
-### 技术 SEO（8 个）
-- seo-technical — 8 大类审计
-- seo-sitemap — Sitemap 分析/生成
-- seo-hreflang — 多语言 SEO
-- seo-schema — Schema 结构化数据
-- seo-images — 图片 SEO
-- seo-redirects — 重定向审计
-- seo-internal-links — 内链分析/生成
-- seo-geo-technical — AI 爬虫优化
-
-### 内容优化（8 个）
-- seo-content-audit — E-E-A-T + AI 可引用性
-- seo-content-brief — 内容简报
-- seo-content-writer — 写作指南
-- seo-content-decay — 内容衰退检测
-- seo-cannibalization — 关键词蚕食
-- seo-page — 单页分析
-- seo-competitor-pages — 竞品分析
-- seo-programmatic — 程序化 SEO
-
-### 关键词 & SERP（3 个，需 DataForSEO）
-- seo-keywords — 关键词研究
-- seo-serp — SERP 追踪
-- seo-backlinks — 外链分析
-
-### AI 可见性（2 个，需 DataForSEO）
-- seo-ai-visibility — LLM 提及监控
-- seo-plan — SEO 策略规划
-
-## 依赖
-
-| 类别 | 数量 | 依赖 |
-|------|------|------|
-| 技术 SEO + 内容优化 | 16 | WebFetch（内置）|
-| 关键词/SERP/外链/AI | 5 | DataForSEO |
-
-**无需 DataForSEO 即可使用 16 个 skills。**
-
-## 配置文件
+## Architecture
 
 ```
-~/.config/dataforseo/auth       # DataForSEO Base64 凭据
-~/.config/claude/mcp.json       # MCP 配置（可选）
+30x-seo/
+├── skills/           # 21 SEO skills
+│   └── 30x-seo-*/    # Individual skill directories
+├── agents/           # 6 subagents for parallel execution
+├── docs/             # Architecture, commands, MCP integration
+├── schema/           # JSON-LD templates
+└── seo/              # Main skill + reference materials
 ```
 
-## 文档
+## Dependencies
 
-- [SETUP-CN.md](SETUP-CN.md) — 中文配置指南（详细）
+| Skill Category | Count | Dependency |
+|----------------|-------|------------|
+| Technical SEO | 8 | WebFetch (built-in) |
+| Content | 8 | WebFetch (built-in) |
+| Keywords/SERP/Backlinks | 3 | DataForSEO API |
+| AI Visibility | 2 | DataForSEO API |
+
+**16 skills work without any API configuration.**
+
+## DataForSEO Setup
+
+1. Sign up at [app.dataforseo.com](https://app.dataforseo.com)
+2. Get credentials from Settings → API Access
+3. Create auth file:
+
+```bash
+echo -n "your-email:your-password" | base64 > ~/.config/dataforseo/auth
+chmod 600 ~/.config/dataforseo/auth
+```
+
+4. Verify:
+
+```bash
+curl -s -X POST "https://api.dataforseo.com/v3/dataforseo_labs/google/keyword_suggestions/live" \
+  -H "Authorization: Basic $(cat ~/.config/dataforseo/auth)" \
+  -H "Content-Type: application/json" \
+  -d '[{"keyword": "test", "limit": 1}]' | jq '.status_code'
+# Returns 20000 = success
+```
+
+## What's Included
+
+- **9,300+ lines** of SEO guidance
+- **2025-2026 updates**: INP metrics, AI Overview optimization, E-E-A-T guidelines
+- **AI visibility monitoring**: Track citations across LLMs
+- **GEO optimization**: Generative Engine Optimization for AI search
+- **Quality gates**: Prevent thin content, doorway pages
 
 ## License
 
