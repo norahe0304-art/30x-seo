@@ -8,26 +8,20 @@
 
 **Solutions:**
 
-1. Verify installation:
+1. Make sure you're running Claude Code from within the 30x-seo directory (or a parent):
 ```bash
-ls ~/.claude/skills/seo/SKILL.md
-```
-
-2. Check SKILL.md has proper frontmatter:
-```bash
-head -5 ~/.claude/skills/seo/SKILL.md
-```
-Should start with `---` followed by YAML.
-
-3. Restart Claude Code:
-```bash
+cd /path/to/30x-seo
 claude
 ```
 
-4. Re-run installer:
+2. Check SKILL.md exists and has proper frontmatter:
 ```bash
-curl -fsSL https://raw.githubusercontent.com/AgriciDaniel/claude-seo/main/install.sh | bash
+ls skills/30x-seo/SKILL.md
+head -5 skills/30x-seo/SKILL.md
 ```
+Should start with `---` followed by YAML.
+
+3. Restart Claude Code.
 
 ---
 
@@ -37,48 +31,14 @@ curl -fsSL https://raw.githubusercontent.com/AgriciDaniel/claude-seo/main/instal
 
 **Solution:**
 
-As of v1.2.0, dependencies are installed in a venv. Try:
-
-```bash
-# Use the venv pip
-~/.claude/skills/seo/.venv/bin/pip install -r ~/.claude/skills/seo/requirements.txt
-```
-
-If the venv doesn't exist, install with `--user`:
-```bash
-pip install --user -r ~/.claude/skills/seo/requirements.txt
-```
-
-Or install individually:
 ```bash
 pip install --user beautifulsoup4 requests lxml playwright Pillow urllib3 validators
 ```
 
-### requirements.txt Not Found
-
-**Symptom:** `No such file: requirements.txt` after install
-
-**Solution:** As of v1.2.0, requirements.txt is copied to the skill directory:
-
+Or install from requirements.txt:
 ```bash
-ls ~/.claude/skills/seo/requirements.txt
+pip install --user -r requirements.txt
 ```
-
-If missing, download it directly:
-```bash
-curl -fsSL https://raw.githubusercontent.com/AgriciDaniel/claude-seo/main/requirements.txt \
-  -o ~/.claude/skills/seo/requirements.txt
-```
-
-### Windows Python Detection Issues
-
-**Symptom:** `python is not recognized` or `pip points to wrong Python`
-
-**Solution (v1.2.0+):** The Windows installer now tries both `python` and `py -3`. If both fail:
-
-1. Install Python from [python.org](https://python.org) and check "Add to PATH"
-2. Or use the Windows launcher: `py -3 -m pip install -r requirements.txt`
-3. Use `python -m pip` instead of bare `pip`
 
 ---
 
@@ -88,14 +48,11 @@ curl -fsSL https://raw.githubusercontent.com/AgriciDaniel/claude-seo/main/requir
 
 **Solution:**
 ```bash
+pip install playwright
 playwright install chromium
 ```
 
-If that fails:
-```bash
-pip install playwright
-python -m playwright install chromium
-```
+Playwright is optional — without it, visual analysis uses WebFetch as a fallback.
 
 ---
 
@@ -105,9 +62,9 @@ python -m playwright install chromium
 
 **Solution:**
 ```bash
-chmod +x ~/.claude/skills/seo/scripts/*.py
-chmod +x ~/.claude/skills/seo/hooks/*.py
-chmod +x ~/.claude/skills/seo/hooks/*.sh
+chmod +x scripts/*.py
+chmod +x hooks/*.py
+chmod +x hooks/*.sh
 ```
 
 ---
@@ -123,7 +80,7 @@ chmod +x ~/.claude/skills/seo/hooks/*.sh
 cat ~/.claude/settings.json
 ```
 
-2. Ensure correct path:
+2. Ensure correct relative path:
 ```json
 {
   "hooks": {
@@ -133,7 +90,7 @@ cat ~/.claude/settings.json
         "hooks": [
           {
             "type": "command",
-            "command": "python3 ~/.claude/skills/seo/hooks/validate-schema.py \"$FILE_PATH\"",
+            "command": "python3 ./hooks/validate-schema.py \"$FILE_PATH\"",
             "exitCodes": { "2": "block" }
           }
         ]
@@ -145,7 +102,7 @@ cat ~/.claude/settings.json
 
 3. Test hook directly:
 ```bash
-python3 ~/.claude/skills/seo/hooks/validate-schema.py test.html
+python3 hooks/validate-schema.py test.html
 ```
 
 ---
@@ -158,17 +115,12 @@ python3 ~/.claude/skills/seo/hooks/validate-schema.py test.html
 
 1. Verify agent files exist:
 ```bash
-ls ~/.claude/agents/seo-*.md
+ls agents/seo-*.md
 ```
 
 2. Check agent frontmatter:
 ```bash
-head -5 ~/.claude/agents/seo-technical.md
-```
-
-3. Re-install agents:
-```bash
-cp /path/to/claude-seo/agents/*.md ~/.claude/agents/
+head -5 agents/seo-technical.md
 ```
 
 ---
@@ -180,9 +132,8 @@ cp /path/to/claude-seo/agents/*.md ~/.claude/agents/
 **Solutions:**
 
 1. The target site may be slow — try again
-2. Increase timeout in script calls
-3. Check your network connection
-4. Some sites block automated requests
+2. Check your network connection
+3. Some sites block automated requests
 
 ---
 
@@ -199,38 +150,44 @@ cp /path/to/claude-seo/agents/*.md ~/.claude/agents/
 
 ---
 
-### Slow Audit Performance
+### DataForSEO Auth Errors
 
-**Symptom:** Full audit takes too long
+**Symptom:** `401 Unauthorized` or `Invalid credentials`
 
-**Solutions:**
+**Check credentials:**
 
-1. Audit crawls up to 500 pages — large sites take time
-2. Subagents run in parallel to speed up analysis
-3. For faster checks, use `/seo page` on specific URLs
-4. Check if site has slow response times
+```bash
+cat ~/.config/dataforseo/auth | base64 -d
+# Should output: your-email:your-password
+```
+
+**Recreate auth file:**
+```bash
+mkdir -p ~/.config/dataforseo
+echo -n "your-email:your-password" | base64 > ~/.config/dataforseo/auth
+chmod 600 ~/.config/dataforseo/auth
+```
+
+---
+
+## Debug Mode
+
+To see detailed output, run scripts directly:
+
+```bash
+# Test fetch
+python3 scripts/fetch_page.py https://example.com
+
+# Test parse
+python3 scripts/parse_html.py page.html --json
+
+# Test screenshot (requires Playwright)
+python3 scripts/capture_screenshot.py https://example.com
+```
 
 ---
 
 ## Getting Help
 
 1. **Check the docs:** Review [COMMANDS.md](COMMANDS.md) and [ARCHITECTURE.md](ARCHITECTURE.md)
-
-2. **GitHub Issues:** Report bugs at the repository
-
-3. **Logs:** Check Claude Code's output for error details
-
-## Debug Mode
-
-To see detailed output, check Claude Code's internal logs or run scripts directly:
-
-```bash
-# Test fetch
-python3 ~/.claude/skills/seo/scripts/fetch_page.py https://example.com
-
-# Test parse
-python3 ~/.claude/skills/seo/scripts/parse_html.py page.html --json
-
-# Test screenshot
-python3 ~/.claude/skills/seo/scripts/capture_screenshot.py https://example.com
-```
+2. **GitHub Issues:** Report bugs at https://github.com/norahe0304-art/30x-seo/issues

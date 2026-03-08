@@ -22,7 +22,7 @@ except ImportError:
 
 
 DEFAULT_HEADERS = {
-    "User-Agent": "Mozilla/5.0 (compatible; ClaudeSEO/1.0; +https://github.com/AgriciDaniel/claude-seo)",
+    "User-Agent": "Mozilla/5.0 (compatible; 30xSEO/1.0; +https://github.com/norahe0304-art/30x-seo)",
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
     "Accept-Language": "en-US,en;q=0.5",
     "Accept-Encoding": "gzip, deflate",

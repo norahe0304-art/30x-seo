@@ -1,4 +1,4 @@
-# TODO — claude-seo
+# TODO — 30x SEO
 
 ## Completed in v1.2.0
 

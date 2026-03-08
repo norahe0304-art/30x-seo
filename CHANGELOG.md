@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **SSRF prevention**: Added private IP blocking to `fetch_page.py` and `analyze_visual.py`
 - **Path traversal prevention**: Added output path sanitization to `capture_screenshot.py` and file validation to `parse_html.py`
 - **Install hardening**: Removed `--break-system-packages`, switched to venv-based pip install
-- **requirements.txt**: Now persisted to `~/.claude/skills/seo/` for user retry
+- **requirements.txt**: Now persisted to skill directory for user retry
 
 ### Fixed
 - **YAML frontmatter parsing**: Removed HTML comments before `---` delimiter in 8 files (skills: seo-content, seo-images, seo-programmatic, seo-schema, seo-technical; agents: seo-content, seo-performance, seo-technical). Thanks @kylewhirl for identifying this in the codex-seo fork.
@@ -19,7 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **requirements.txt missing after install**: Now copied to skill directory so users can retry (#1)
 
 ### Changed
-- Python dependencies now installed in a venv at `~/.claude/skills/seo/.venv/` with `--user` fallback (#2)
+- Python dependencies now installed in a local venv with `--user` fallback (#2)
 - Playwright marked as explicitly optional in install output
 - Windows installer uses `Resolve-Python` helper for robust Python detection (#5)
 
@@ -62,7 +62,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - 2026-02-07
 
 ### Added
-- Initial release of Claude SEO
+- Initial release of 30x SEO
 - 9 specialized skills: audit, page, sitemap, schema, images, technical, content, geo, plan
 - 6 subagents for parallel analysis: seo-technical, seo-content, seo-schema, seo-sitemap, seo-performance, seo-visual
 - Industry templates: SaaS, local service, e-commerce, publisher, agency, generic
