@@ -2,29 +2,29 @@
 
 ## Completed in v1.2.0
 
-- [x] **Fix YAML frontmatter parsing** — Removed HTML comments before `---` in 8 files (from @kylewhirl fork)
-- [x] **SSRF prevention in Python scripts** — Private IP blocking in fetch_page.py and analyze_visual.py (from @artyomsv #7)
-- [x] **Install hardening** — venv-based pip, no `--break-system-packages` (from @JawandS #2)
-- [x] **Windows install fixes** — `python -m pip`, `py -3` fallback, requirements.txt persistence (from @kfrancis #5, PR #6)
-- [x] **requirements.txt persistence** — Copied to skill dir after install (from @edustef #1)
+- [x] **Fix YAML frontmatter parsing** — Removed HTML comments before `---` in 8 files
+- [x] **SSRF prevention in Python scripts** — Private IP blocking in fetch_page.py and analyze_visual.py
+- [x] **Install hardening** — venv-based pip, no `--break-system-packages`
+- [x] **Windows install fixes** — `python -m pip`, `py -3` fallback, requirements.txt persistence
+- [x] **requirements.txt persistence** — Copied to skill dir after install
 - [x] **Path traversal prevention** — Output path sanitization in capture_screenshot.py, file validation in parse_html.py
 
-## Deferred from Community Feedback
+## Backlog
 
-- [ ] **Reduce Bash scope on agents** (Priority: Medium, from @artyomsv #7)
+- [ ] **Reduce Bash scope on agents** (Priority: Medium)
   Evaluate which agents truly need Bash access. Consider replacing with WebFetch where possible.
 
-- [ ] **Docker-based script execution** (Priority: Low, from @artyomsv #7)
+- [ ] **Docker-based script execution** (Priority: Low)
   Sandbox Python scripts in Docker for users who want extra isolation.
 
-- [ ] **Opencode compatibility** (Priority: Low, from @Ehtz #4)
-  Adapt skill architecture for Opencode. @kylewhirl already ported to OpenAI Codex.
+- [ ] **Opencode compatibility** (Priority: Low)
+  Adapt skill architecture for Opencode.
 
-- [ ] **Subagent timeout/compact handling** (Priority: Medium, from @JawandS #3)
+- [ ] **Subagent timeout/compact handling** (Priority: Medium)
   Primary agent sometimes terminates before subagents finish. Consider encouraging subagents
   to run /compact and adding explicit wait logic.
 
-- [ ] **Native Chrome tools vs Playwright** (Priority: Medium, from @artyomsv #7, @btafoya PR #8)
+- [ ] **Native Chrome tools vs Playwright** (Priority: Medium)
   Claude Code has native browser automation. Evaluate replacing Playwright with built-in tools
   to eliminate the ~200MB Chromium dependency.
 
@@ -46,4 +46,4 @@
 
 ---
 
-*Last updated: February 19, 2026*
+*Last updated: March 2026*
