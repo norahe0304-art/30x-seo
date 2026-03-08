@@ -110,39 +110,39 @@ chmod 600 ~/.config/dataforseo/auth
 
 ```bash
 # Audit
-/30x-seo page https://example.com/page
+/seo page https://example.com/page
 squirrelscan audit https://example.com --format llm
 
 # Technical
-/30x-seo technical https://example.com
-/30x-seo schema https://example.com
-/30x-seo sitemap https://example.com/sitemap.xml
+/seo technical https://example.com
+/seo schema https://example.com
+/seo sitemap https://example.com/sitemap.xml
 
 # Links
-/30x-seo internal-links https://example.com
-/30x-seo redirects https://example.com
-/30x-seo backlinks profile example.com        # DataForSEO
+/seo internal-links https://example.com
+/seo redirects https://example.com
+/seo backlinks profile example.com        # DataForSEO
 
 # Content
-/30x-seo content-audit https://example.com/page
-/30x-seo content-brief "target keyword"
+/seo content-audit https://example.com/page
+/seo content-brief "target keyword"
 
 # Planning
-/30x-seo plan saas
-/30x-seo architecture https://example.com
+/seo plan saas
+/seo architecture https://example.com
 
 # Programmatic
-/30x-seo programmatic plan
-/30x-seo competitor-pages generate
+/seo programmatic plan
+/seo competitor-pages generate
 
 # Monitoring
-/30x-seo monitor overview                     # GSC - your site
-/30x-seo monitor keywords                     # GSC - your rankings
-/30x-seo serp check "keyword"                 # DataForSEO - any site
-/30x-seo ai-visibility domain example.com     # DataForSEO
+/seo monitor overview                     # GSC - your site
+/seo monitor keywords                     # GSC - your rankings
+/seo serp check "keyword"                 # DataForSEO - any site
+/seo ai-visibility domain example.com     # DataForSEO
 
 # Data
-/30x-seo keywords research "seed keyword"     # DataForSEO
+/seo keywords research "seed keyword"     # DataForSEO
 ```
 
 ---
