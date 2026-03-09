@@ -19,10 +19,10 @@
 ## Quick Start
 
 ```bash
-npx seo-30x
+npx skills add seo-30x
 ```
 
-That's it. The installer handles everything.
+That's it. One command installs all 23 skills.
 
 **Optional: Configure DataForSEO** (for keywords/backlinks/SERP/AI visibility)
 
