@@ -7,6 +7,7 @@ description: >
 allowed-tools:
   - WebFetch
   - Read
+maturity: stable
 ---
 
 # Schema Markup Analysis & Generation

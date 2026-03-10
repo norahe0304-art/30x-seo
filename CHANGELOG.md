@@ -5,6 +5,52 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.0] - 2026-03-10
+
+### Added
+- **9 new skills** (32 total, 9 categories):
+  - `30x-seo-fake-freshness`: Detect pages with updated dates but unchanged content. Scores authenticity 0-100.
+  - `30x-seo-mobile-parity`: Compare mobile vs desktop content for mobile-first indexing parity.
+  - `30x-seo-discover`: Google Discover optimization — clickbait detection, content depth, image readiness.
+  - `30x-seo-rank-tracking`: Historical rank tracking, position change alerts, trending keywords (DataForSEO).
+  - `30x-seo-competitive-tracking`: Competitor SERP monitoring, threat detection, new content alerts (DataForSEO).
+  - `30x-seo-cwv-analytics`: CrUX field data, LCP subparts breakdown, INP diagnostics (Google API).
+  - `30x-seo-semantic-search`: Entity extraction, topical authority scoring, Knowledge Panel eligibility.
+  - `30x-seo-content-localization`: Translation quality, cultural adaptation, locale-specific keyword analysis.
+  - `30x-seo-blog-pipeline`: End-to-end SEO blog production pipeline — keyword research, SERP analysis, outline, draft, optimization, CMS-ready output.
+- **2 new Python scripts**:
+  - `scripts/brand_mentions.py`: Brand mention extraction from AI responses with sentiment scoring and competitor comparison.
+  - `scripts/health_check.py`: Installation health check — validates deps, credentials, skill integrity, routing table.
+- **Testing infrastructure**:
+  - pytest test suite with 257+ tests covering fetch_page, parse_html, brand_mentions, and skill routing validation.
+  - `pytest.ini` configuration.
+  - `requirements-dev.txt` with pytest + ruff.
+- **CI/CD pipeline** (GitHub Actions):
+  - `ci.yml`: Lint (ruff), test (pytest), validate skills (frontmatter + routing).
+  - `release.yml`: Auto-release with Docker image builds on tag push.
+  - Dependabot configuration for weekly dependency updates.
+  - Issue templates for bug reports and feature requests.
+- **Docker support**: `Dockerfile` (lightweight) and `Dockerfile.playwright` (with Chromium). Docs in `docs/DOCKER.md`.
+- **OpenCode compatibility guide** (`docs/OPENCODE.md`): Skill/agent discovery, symlink instructions.
+- **Contributing guide** (`CONTRIBUTING.md`): Skill development tutorial, quality checklist, PR process.
+- **Subagent lifecycle rules**: Background launch, wait-for-all, 5-minute timeout, partial result handling.
+- **Schema template updates**: Added WebApplication, SearchAction, ConferenceEvent, LoyaltyProgram templates.
+- **Interactive setup wizard** (`scripts/interactive_setup.py`): Guided first-run configuration.
+- **Example outputs** in `examples/` directory.
+- **`requirements-optional.txt`**: Separate file for Playwright dependency.
+- **`package.json`**: npm skill package metadata for distribution.
+- **Enhanced `SECURITY.md`**: CVE tracking table, scope definition, detailed reporting process.
+
+### Changed
+- **Agent Bash scope reduced**: Removed Bash from seo-schema, seo-content, seo-sitemap, seo-technical agents. Replaced with WebFetch. Only seo-performance and seo-visual retain Bash.
+- **seo-visual agent**: WebFetch primary, Playwright optional (screenshots only). ~200MB Chromium no longer required.
+- **Playwright moved to optional**: Commented out in `requirements.txt`, available via `requirements-optional.txt`.
+- **Skill count**: 23 → 32 sub-skills across 9 categories.
+- **Content category expanded**: 9 → 10 skills (blog pipeline added).
+- **Monitoring category expanded**: 3 → 6 skills (rank tracking, competitive tracking, CWV analytics).
+
+---
+
 ## [1.2.0] - 2026-02-19
 
 ### Security

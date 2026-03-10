@@ -1,0 +1,24 @@
+FROM mcr.microsoft.com/playwright/python:v1.56.0-noble
+
+LABEL org.opencontainers.image.title="30x-seo-scripts-playwright"
+LABEL org.opencontainers.image.description="Sandboxed execution for 30x SEO scripts with Playwright/Chromium"
+
+# Security: non-root user
+RUN useradd --create-home --shell /bin/bash seouser
+
+WORKDIR /app
+
+# Install dependencies (including playwright)
+COPY requirements.txt requirements-optional.txt ./
+RUN pip install --no-cache-dir -r requirements.txt -r requirements-optional.txt
+
+# Copy scripts only
+COPY scripts/ ./scripts/
+
+# Screenshots output
+RUN mkdir -p /app/screenshots && chown seouser:seouser /app/screenshots
+
+# Drop to non-root
+USER seouser
+
+ENTRYPOINT ["python3"]

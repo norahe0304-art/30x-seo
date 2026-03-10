@@ -7,6 +7,7 @@ description: >
 allowed-tools:
   - WebFetch
   - Read
+maturity: stable
 ---
 
 # Sitemap Analysis & Generation

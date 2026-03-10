@@ -8,6 +8,7 @@ description: >
 allowed-tools:
   - WebFetch
   - Read
+maturity: stable
 ---
 
 # Competitor Comparison & Alternatives Pages

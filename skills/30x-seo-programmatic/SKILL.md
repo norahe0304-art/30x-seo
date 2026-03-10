@@ -9,6 +9,7 @@ description: >
 allowed-tools:
   - WebFetch
   - Read
+maturity: stable
 ---
 
 # Programmatic SEO Analysis & Planning

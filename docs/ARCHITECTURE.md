@@ -39,7 +39,13 @@
 │   ├── 30x-seo-serp/             # SERP tracking (DataForSEO)
 │   ├── 30x-seo-ai-visibility/    # AI visibility (DataForSEO)
 │   ├── 30x-seo-keywords/         # Keyword research (DataForSEO)
-│   └── 30x-seo-geo-technical/    # AI crawler management
+│   ├── 30x-seo-geo-technical/    # AI crawler management
+│   ├── 30x-seo-fake-freshness/  # Fake freshness detection
+│   ├── 30x-seo-mobile-parity/   # Mobile content parity
+│   ├── 30x-seo-discover/        # Google Discover optimization
+│   ├── 30x-seo-rank-tracking/   # Historical rank tracking
+│   ├── 30x-seo-competitive-tracking/ # Competitor monitoring
+│   └── 30x-seo-cwv-analytics/   # CrUX CWV deep dive
 │
 ├── agents/
 │   ├── seo-technical.md      # Technical SEO specialist
@@ -83,7 +89,7 @@ Subagents are specialized workers that can be delegated tasks. They have their o
 ---
 name: agent-name
 description: What this agent does.
-tools: Read, Bash, Write, Glob, Grep
+tools: Read, WebFetch, Write, Glob, Grep
 ---
 
 Instructions for the agent...
@@ -158,9 +164,11 @@ User Request (e.g., /seo page)
 
 ### 2. Parallel Processing
 
-- Subagents run concurrently during audits
+- Subagents run concurrently during audits via `run_in_background: true`
 - Independent analyses don't block each other
 - Results aggregated after all complete
+- 5-minute timeout per subagent; partial results accepted on timeout
+- Missing sections flagged in final report rather than blocking
 
 ### 3. Quality Gates
 

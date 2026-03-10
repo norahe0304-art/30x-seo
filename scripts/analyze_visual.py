@@ -14,9 +14,13 @@ import sys
 from urllib.parse import urlparse
 
 try:
-    from playwright.sync_api import sync_playwright, TimeoutError as PlaywrightTimeout
+    from playwright.sync_api import TimeoutError as PlaywrightTimeout
+    from playwright.sync_api import sync_playwright
 except ImportError:
-    print("Error: playwright required. Install with: pip install playwright && playwright install chromium")
+    print(
+        "Error: playwright required. Install with: "
+        "pip install playwright && playwright install chromium"
+    )
     sys.exit(1)
 
 
@@ -182,7 +186,8 @@ def main():
 
         print("\nMobile Responsiveness:")
         print(f"  Viewport Meta: {'✓' if result['mobile']['viewport_meta'] else '✗'}")
-        print(f"  Horizontal Scroll: {'✗ (problem)' if result['mobile']['horizontal_scroll'] else '✓'}")
+        h_scroll = result['mobile']['horizontal_scroll']
+        print(f"  Horizontal Scroll: {'✗ (problem)' if h_scroll else '✓'}")
 
         print("\nTypography:")
         print(f"  Base Font Size: {result['fonts']['base_size']}px")

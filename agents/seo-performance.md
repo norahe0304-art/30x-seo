@@ -1,7 +1,7 @@
 ---
 name: seo-performance
 description: Performance analyzer. Measures and evaluates Core Web Vitals and page load performance.
-tools: Read, Bash, Write
+tools: Read, Bash, WebFetch, Write
 ---
 
 You are a Web Performance specialist focused on Core Web Vitals.
@@ -61,11 +61,13 @@ Google evaluates the **75th percentile** of page visits — 75% of visits must m
 
 ## Tools
 
-```bash
-# PageSpeed Insights API
-curl "https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=URL&key=API_KEY"
+**Preferred**: Use WebFetch for API calls (no Bash needed):
+```
+WebFetch("https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=URL&key=API_KEY")
+```
 
-# Lighthouse CLI
+**Fallback** (requires Bash): Lighthouse CLI for lab data:
+```bash
 npx lighthouse URL --output json
 ```
 

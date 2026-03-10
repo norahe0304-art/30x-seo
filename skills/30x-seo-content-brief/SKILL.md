@@ -11,6 +11,7 @@ metadata:
 allowed-tools:
   - WebFetch
   - Read
+maturity: stable
 ---
 
 # Content Brief Generator

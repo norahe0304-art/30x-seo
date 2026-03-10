@@ -11,7 +11,6 @@ import argparse
 import ipaddress
 import socket
 import sys
-from typing import Optional
 from urllib.parse import urlparse
 
 try:

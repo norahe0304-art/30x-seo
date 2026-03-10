@@ -1,18 +1,23 @@
 ---
 name: seo
 description: >
-  Master SEO orchestrator with 23 specialized sub-skills across 8 categories.
+  Master SEO orchestrator with 32 specialized sub-skills across 9 categories.
   Comprehensive SEO analysis for any website or business type. Performs full site
   audits, single-page deep analysis, technical SEO checks (crawlability, indexability,
   Core Web Vitals with INP), schema markup, content quality (E-E-A-T framework),
   image optimization, sitemap analysis, site architecture planning, AI search
   optimization (GEO for ChatGPT, Perplexity, AI Overviews), backlink analysis,
-  keyword research, SERP tracking, and AI visibility monitoring.
+  keyword research, SERP tracking, AI visibility monitoring, fake freshness detection,
+  mobile content parity checks, and Google Discover optimization.
   Industry detection for SaaS, e-commerce, local business, publishers, agencies.
   Triggers on: "SEO", "audit", "schema", "Core Web Vitals", "sitemap", "E-E-A-T",
   "AI Overviews", "GEO", "technical SEO", "content quality", "page speed",
   "structured data", "site architecture", "metadata", "AI SEO", "backlinks",
-  "link building", "keywords", "keyword research", "SERP", "AI visibility".
+  "link building", "keywords", "keyword research", "SERP", "AI visibility",
+  "fake freshness", "mobile parity", "Discover", "rank tracking",
+  "competitive tracking", "CWV analytics", "LCP subparts", "CrUX",
+  "semantic search", "entity SEO", "Knowledge Graph", "content localization",
+  "blog pipeline", "write blog", "generate article", "auto blog".
 allowed-tools:
   - Read
   - Grep
@@ -26,8 +31,8 @@ allowed-tools:
 [PROTOCOL]: Update this header on changes
 
 Comprehensive SEO analysis across all industries (SaaS, local services,
-e-commerce, publishers, agencies). Orchestrates **23 specialized sub-skills**
-organized in 8 categories, plus 6 parallel subagents for audits.
+e-commerce, publishers, agencies). Orchestrates **32 specialized sub-skills**
+organized in 9 categories, plus 6 parallel subagents for audits.
 
 ---
 
@@ -65,6 +70,10 @@ organized in 8 categories, plus 6 parallel subagents for audits.
 | `/seo cannibalization <domain>` | Find keyword conflicts between pages |
 | `/seo content-brief <keyword>` | Analyze SERP top 10, generate content briefs |
 | `/seo content-writer` | SEO + AI optimized writing guidelines |
+| `/seo fake-freshness <url>` | Detect pages with updated dates but unchanged content |
+| `/seo mobile-parity <url>` | Compare mobile vs desktop content for indexing parity |
+| `/seo discover <url>` | Google Discover optimization: clickbait, depth, images |
+| `/seo blog-pipeline <keyword>` | Full blog production: research → outline → draft → optimize |
 
 ### 5. Planning
 | Command | What it does |
@@ -84,6 +93,9 @@ organized in 8 categories, plus 6 parallel subagents for audits.
 | `/seo monitor overview` | Monitor your site: rankings, clicks, CTR, position changes *(GSC)* |
 | `/seo serp check <keyword>` | Live SERP check for any keyword *(DataForSEO)* |
 | `/seo ai-visibility domain <domain>` | Track mentions in ChatGPT, Claude, Perplexity, AI Overview *(DataForSEO)* |
+| `/seo rank-tracking snapshot <domain>` | Current rankings + position history + alerts *(DataForSEO)* |
+| `/seo competitive-tracking overview <domain> <competitor>` | Side-by-side competitor monitoring *(DataForSEO)* |
+| `/seo cwv-analytics overview <url>` | CrUX field data + LCP subparts + INP diagnostics *(Google API)* |
 
 ### 8. Data
 | Command | What it does |
@@ -91,6 +103,12 @@ organized in 8 categories, plus 6 parallel subagents for audits.
 | `/seo keywords research <seed>` | Ideas, volume, difficulty, intent, trends *(DataForSEO)* |
 | `/seo keywords site <domain>` | Keywords a site ranks for *(DataForSEO)* |
 | `/seo keywords gap <domain> <competitor>` | Find keyword opportunities *(DataForSEO)* |
+
+### 9. Advanced
+| Command | What it does |
+|---------|-------------|
+| `/seo semantic-search <url>` | Entity extraction, topical authority, Knowledge Graph optimization |
+| `/seo content-localization <source-url> <localized-url>` | Translation quality, cultural adaptation, locale keywords |
 
 ---
 
@@ -113,6 +131,15 @@ organized in 8 categories, plus 6 parallel subagents for audits.
 | `cannibalization` | 30x-seo-cannibalization |
 | `content-brief` | 30x-seo-content-brief |
 | `content-writer` | 30x-seo-content-writer |
+| `fake-freshness` | 30x-seo-fake-freshness |
+| `mobile-parity` | 30x-seo-mobile-parity |
+| `discover` | 30x-seo-discover |
+| `rank-tracking` | 30x-seo-rank-tracking |
+| `competitive-tracking` | 30x-seo-competitive-tracking |
+| `cwv-analytics` | 30x-seo-cwv-analytics |
+| `semantic-search` | 30x-seo-semantic-search |
+| `content-localization` | 30x-seo-content-localization |
+| `blog-pipeline` | 30x-seo-blog-pipeline |
 | `plan` | 30x-seo-plan |
 | `architecture` | 30x-seo-architecture |
 | `programmatic` | 30x-seo-programmatic |
@@ -131,6 +158,14 @@ When user invokes `/seo audit`, delegate to subagents in parallel:
 2. Spawn subagents: technical, content, schema, sitemap, performance, visual
 3. Collect results and generate unified report with SEO Health Score (0-100)
 4. Create prioritized action plan (Critical → High → Medium → Low)
+
+### Subagent Lifecycle Rules
+
+- **Launch**: Spawn all 6 subagents using the Agent tool with `run_in_background: true`
+- **Wait**: Do NOT generate the final report until all subagents have returned results. You will be notified when each completes.
+- **Timeout**: If a subagent has not returned after 5 minutes, proceed without it and note the gap in the report.
+- **Context management**: For large pages, subagents should focus on their specific domain only. Do not ask subagents to analyze areas outside their specialty.
+- **Partial results**: If any subagent fails, include available results and flag missing sections as "Analysis unavailable — [agent] did not complete."
 
 ---
 
@@ -178,7 +213,7 @@ Hard rules:
 
 ---
 
-## Sub-Skills (23 Total, 8 Categories)
+## Sub-Skills (32 Total, 9 Categories)
 
 ### 1. Audit (1 skill + CLI)
 | Skill | What it does |
@@ -202,7 +237,7 @@ Hard rules:
 | **30x-seo-backlinks** | Backlink profile *(DataForSEO)* |
 | **30x-seo-redirects** | Redirect chain analysis |
 
-### 4. Content (6 skills)
+### 4. Content (10 skills)
 | Skill | What it does |
 |-------|-------------|
 | **30x-seo-content-audit** | E-E-A-T + AI citability |
@@ -211,6 +246,10 @@ Hard rules:
 | **30x-seo-cannibalization** | Keyword conflict detection |
 | **30x-seo-content-brief** | SERP-based content briefs |
 | **30x-seo-content-writer** | SEO writing guidelines |
+| **30x-seo-fake-freshness** | Detect fake date updates |
+| **30x-seo-mobile-parity** | Mobile vs desktop content parity |
+| **30x-seo-discover** | Google Discover optimization |
+| **30x-seo-blog-pipeline** | End-to-end SEO blog production |
 
 ### 5. Planning (2 skills)
 | Skill | What it does |
@@ -224,17 +263,26 @@ Hard rules:
 | **30x-seo-programmatic** | Scale content with templates |
 | **30x-seo-competitor-pages** | X vs Y comparison pages |
 
-### 7. Monitoring (3 skills)
+### 7. Monitoring (6 skills)
 | Skill | What it does |
 |-------|-------------|
 | **30x-seo-monitor** | Your site via GSC |
 | **30x-seo-serp** | Any site via DataForSEO |
 | **30x-seo-ai-visibility** | AI search visibility |
+| **30x-seo-rank-tracking** | Historical rank tracking + alerts |
+| **30x-seo-competitive-tracking** | Competitor SERP monitoring |
+| **30x-seo-cwv-analytics** | CrUX field data + CWV deep dive |
 
 ### 8. Data (1 skill)
 | Skill | What it does |
 |-------|-------------|
 | **30x-seo-keywords** | Keyword research *(DataForSEO)* |
+
+### 9. Advanced (2 skills)
+| Skill | What it does |
+|-------|-------------|
+| **30x-seo-semantic-search** | Entity extraction + Knowledge Graph |
+| **30x-seo-content-localization** | Multi-language content quality |
 
 ---
 
@@ -245,13 +293,13 @@ Hard rules:
 | Audit | 1 | WebFetch |
 | Technical SEO | 5 | WebFetch |
 | Links | 3 | WebFetch + DataForSEO (backlinks) |
-| Content | 6 | WebFetch |
+| Content | 7 | WebFetch |
 | Planning | 2 | WebFetch |
 | Programmatic SEO | 2 | WebFetch |
-| Monitoring | 3 | GSC + DataForSEO |
+| Monitoring | 6 | GSC + DataForSEO + Google API |
 | Data | 1 | DataForSEO |
 
-**18 skills work without any API. 4 skills require DataForSEO. 1 skill requires Google Search Console.**
+**23 skills work without any API. 6 skills require DataForSEO. 1 skill requires GSC. 1 skill requires Google API key (CrUX/PSI).**
 
 ---
 

@@ -9,6 +9,7 @@ description: >
 allowed-tools:
   - Bash
   - Read
+maturity: stable
 ---
 
 # SEO Keywords Analysis

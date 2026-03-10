@@ -14,9 +14,13 @@ import sys
 from urllib.parse import urlparse
 
 try:
-    from playwright.sync_api import sync_playwright, TimeoutError as PlaywrightTimeout
+    from playwright.sync_api import TimeoutError as PlaywrightTimeout
+    from playwright.sync_api import sync_playwright
 except ImportError:
-    print("Error: playwright required. Install with: pip install playwright && playwright install chromium")
+    print(
+        "Error: playwright required. Install with: "
+        "pip install playwright && playwright install chromium"
+    )
     sys.exit(1)
 
 
@@ -107,7 +111,10 @@ def main():
     cwd = os.getcwd()
     home = os.path.expanduser("~")
     if not (output_dir.startswith(cwd) or output_dir.startswith(home)):
-        print("Error: Output path must be within current directory or home directory", file=sys.stderr)
+        print(
+            "Error: Output path must be within current directory or home directory",
+            file=sys.stderr,
+        )
         sys.exit(1)
 
     # Create output directory
