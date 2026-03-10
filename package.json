@@ -1,0 +1,25 @@
+{
+  "name": "30x-seo",
+  "version": "1.3.0",
+  "description": "29 specialized SEO skills for Claude Code",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/norahe0304-art/30x-seo"
+  },
+  "license": "MIT",
+  "keywords": [
+    "seo",
+    "claude-code",
+    "skills",
+    "audit",
+    "technical-seo"
+  ],
+  "files": [
+    "skills/",
+    "agents/",
+    "scripts/",
+    "seo/",
+    "schema/",
+    "hooks/"
+  ]
+}

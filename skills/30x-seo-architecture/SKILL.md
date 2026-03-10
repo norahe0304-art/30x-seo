@@ -8,6 +8,7 @@ description: >
 allowed-tools:
   - WebFetch
   - Read
+maturity: stable
 ---
 
 # Site Architecture

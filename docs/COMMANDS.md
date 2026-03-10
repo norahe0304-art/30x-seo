@@ -2,277 +2,254 @@
 
 ## Overview
 
-All 30x SEO commands start with `/seo` followed by a subcommand.
+All 30x SEO commands start with `/seo` followed by a subcommand. 32 skills across 9 categories.
 
-## Command List
+## Quick Reference
 
-### `/seo audit <url>`
+| Command | Use Case | Dependency |
+|---------|----------|------------|
+| `/seo audit <url>` | Full website audit (6 parallel subagents) | WebFetch |
+| `/seo page <url>` | Deep single-page analysis | WebFetch |
+| `/seo technical <url>` | 8-category technical SEO audit | WebFetch |
+| `/seo schema <url>` | Schema detection, validation, generation | WebFetch |
+| `/seo sitemap <url>` | Sitemap validation or generation | WebFetch |
+| `/seo hreflang <url>` | International SEO / hreflang audit | WebFetch |
+| `/seo geo-technical <url>` | AI crawler management, llms.txt | WebFetch |
+| `/seo internal-links <url>` | Orphan pages, click depth, anchor text | WebFetch |
+| `/seo backlinks profile <domain>` | Backlink profile analysis | DataForSEO |
+| `/seo backlinks gap <domain> <competitor>` | Link gap opportunities | DataForSEO |
+| `/seo redirects <url>` | Redirect chains, loops, protocol issues | WebFetch |
+| `/seo content-audit <url>` | E-E-A-T + AI citability scoring | WebFetch |
+| `/seo images <url>` | Alt text, sizes, formats, lazy loading | WebFetch |
+| `/seo content-decay <url>` | Detect declining content | WebFetch |
+| `/seo cannibalization <domain>` | Keyword conflict detection | WebFetch |
+| `/seo content-brief <keyword>` | SERP-based content briefs | WebFetch |
+| `/seo content-writer` | SEO writing guidelines | — |
+| `/seo fake-freshness <url>` | Detect fake date updates | WebFetch |
+| `/seo mobile-parity <url>` | Mobile vs desktop content parity | WebFetch |
+| `/seo discover <url>` | Google Discover optimization | WebFetch |
+| `/seo plan <type>` | Strategic SEO planning | WebFetch |
+| `/seo architecture <url>` | Site structure planning | WebFetch |
+| `/seo programmatic plan` | Scale content with templates | WebFetch |
+| `/seo competitor-pages generate` | X vs Y comparison pages | WebFetch |
+| `/seo monitor overview` | Your site via GSC | GSC |
+| `/seo serp check <keyword>` | Live SERP check | DataForSEO |
+| `/seo ai-visibility domain <domain>` | AI platform mentions | DataForSEO |
+| `/seo rank-tracking snapshot <domain>` | Current rankings + alerts | DataForSEO |
+| `/seo competitive-tracking overview <domain> <competitor>` | Competitor monitoring | DataForSEO |
+| `/seo cwv-analytics overview <url>` | CrUX field data + LCP subparts | Google API |
+| `/seo keywords research <seed>` | Keyword ideas + volume | DataForSEO |
+| `/seo semantic-search <url>` | Entity extraction + Knowledge Graph | WebFetch |
+| `/seo content-localization <source> <localized>` | Translation quality check | WebFetch |
+| `/seo blog-pipeline <keyword>` | Full blog production pipeline | WebFetch |
+
+---
+
+## Command Details
+
+### Audit
+
+#### `/seo audit <url>`
 
 Full website SEO audit with parallel analysis.
 
-**Example:**
 ```
 /seo audit https://example.com
 ```
 
-**What it does:**
-1. Crawls up to 500 pages
-2. Detects business type
-3. Delegates to 6 specialist subagents in parallel
-4. Generates SEO Health Score (0-100)
-5. Creates prioritized action plan
+1. Detects business type (SaaS, local, ecommerce, publisher, agency)
+2. Spawns 6 specialist subagents in parallel
+3. Generates SEO Health Score (0-100)
+4. Creates prioritized action plan (Critical > High > Medium > Low)
 
-**Output:**
-- `FULL-AUDIT-REPORT.md`
-- `ACTION-PLAN.md`
-- `screenshots/` (if Playwright available)
+**Output:** `FULL-AUDIT-REPORT.md`, `ACTION-PLAN.md`, `screenshots/` (if Playwright available)
 
----
+#### `/seo page <url>`
 
-### `/seo page <url>`
+Deep single-page analysis: title, meta, headings, links, images, Schema, E-E-A-T, CWV.
 
-Deep single-page analysis.
-
-**Example:**
 ```
 /seo page https://example.com/about
 ```
 
-**What it analyzes:**
-- On-page SEO (title, meta, headings, URLs)
-- Content quality (word count, readability, E-E-A-T)
-- Technical elements (canonical, robots, Open Graph)
-- Schema markup
-- Images (alt text, sizes, formats)
-- Core Web Vitals potential issues
+---
+
+### Technical SEO
+
+#### `/seo technical <url>`
+
+8-category audit: crawlability, indexability, security, URL structure, mobile, Core Web Vitals (LCP/INP/CLS), structured data, JS rendering.
+
+#### `/seo schema <url>`
+
+Detect existing schema (JSON-LD, Microdata, RDFa), validate against Google's requirements, identify missing opportunities, generate ready-to-use JSON-LD.
+
+#### `/seo sitemap <url>` / `/seo sitemap generate`
+
+Validate XML sitemaps (format, URLs, lastmod, coverage) or generate new ones with industry templates and quality gates.
+
+#### `/seo hreflang <url>`
+
+Validate self-refs, return tags, x-default, ISO codes. Generate correct hreflang implementations.
+
+#### `/seo geo-technical <url>`
+
+AI crawler management: GPTBot, ClaudeBot, PerplexityBot detection. llms.txt standard. SSR checks.
 
 ---
 
-### `/seo technical <url>`
+### Links
 
-Technical SEO audit across 8 categories.
+#### `/seo internal-links <url>`
 
-**Example:**
-```
-/seo technical https://example.com
-```
+Orphan pages, click depth analysis, anchor text optimization, link equity distribution.
 
-**Categories:**
-1. Crawlability
-2. Indexability
-3. Security
-4. URL Structure
-5. Mobile Optimization
-6. Core Web Vitals (LCP, INP, CLS)
-7. Structured Data
-8. JavaScript Rendering
+#### `/seo backlinks profile <domain>` / `/seo backlinks gap <domain> <competitor>`
+
+Backlink profile analysis, anchor text breakdown, toxic link detection, link gap opportunities. *(DataForSEO)*
+
+#### `/seo redirects <url>`
+
+Redirect chains, loops, 301/302 mixed signals, protocol issues, trailing slash consistency.
 
 ---
 
-### `/seo content <url>`
+### Content
 
-E-E-A-T and content quality analysis.
+#### `/seo content-audit <url>`
 
-**Example:**
-```
-/seo content https://example.com/blog/post
-```
+E-E-A-T scoring (Experience 20%, Expertise 25%, Authoritativeness 25%, Trustworthiness 30%) + AI citability analysis.
 
-**What it evaluates:**
-- Experience signals (first-hand knowledge)
-- Expertise (author credentials)
-- Authoritativeness (external recognition)
-- Trustworthiness (transparency, security)
-- AI citation readiness
-- Content freshness
+#### `/seo images <url>`
 
----
+Alt text quality, file sizes (flag >200KB), format recommendations (WebP/AVIF), responsive images, lazy loading, CLS prevention.
 
-### `/seo schema <url>`
+#### `/seo content-decay <url>`
 
-Schema markup detection, validation, and generation.
+Detect content losing rankings/traffic. Identifies pages needing refresh with priority list.
 
-**Example:**
-```
-/seo schema https://example.com
-```
+#### `/seo cannibalization <domain>`
 
-**What it does:**
-- Detects existing schema (JSON-LD, Microdata, RDFa)
-- Validates against Google's requirements
-- Identifies missing opportunities
-- Generates ready-to-use JSON-LD
+Find multiple pages competing for the same keyword. Resolution strategies: merge, redirect, differentiate, or delete.
 
----
+#### `/seo content-brief <keyword>`
 
-### `/seo geo <url>`
+Analyze SERP top 10 for target keyword, extract common topics, identify content gaps, create actionable brief.
 
-AI Overviews / Generative Engine Optimization.
+#### `/seo content-writer`
 
-**Example:**
-```
-/seo geo https://example.com/blog/guide
-```
+SEO + AI optimized writing guidelines for content creation.
 
-**What it analyzes:**
-- Citability score (quotable facts, statistics)
-- Structural readability (headings, lists, tables)
-- Entity clarity (definitions, context)
-- Authority signals (credentials, sources)
-- Structured data support
+#### `/seo fake-freshness <url>`
+
+Compare datePublished/dateModified against actual content age signals. Scores authenticity 0-100.
+
+#### `/seo mobile-parity <url>`
+
+Fetch desktop + mobile versions, compare meta tags, structured data, content, links, images. Scores parity 0-100.
+
+#### `/seo discover <url>`
+
+Google Discover optimization: clickbait title detection, content depth scoring, image readiness (1200px+), local relevance, sensationalism flags.
+
+#### `/seo blog-pipeline <keyword>`
+
+End-to-end SEO blog production: keyword research → SERP analysis → outline → draft → SEO optimization. Auto-detects CMS (Hugo, Next.js, WordPress, Astro, Gatsby). Outputs publish-ready markdown with front matter, schema JSON-LD, and SEO metadata.
+
+Subcommands:
+- `/seo blog-pipeline <keyword>` — Full pipeline
+- `/seo blog-pipeline outline <keyword>` — Research + outline only
+- `/seo blog-pipeline draft <outline-file>` — Draft from existing outline
+- `/seo blog-pipeline optimize <draft-file>` — SEO-optimize existing draft
 
 ---
 
-### `/seo images <url>`
+### Planning
 
-Image optimization analysis.
+#### `/seo plan <type>`
 
-**Example:**
-```
-/seo images https://example.com
-```
+Types: `saas`, `local`, `ecommerce`, `publisher`, `agency`. Creates: competitive analysis, keyword strategy, content calendar, 4-phase implementation roadmap.
 
-**What it checks:**
-- Alt text presence and quality
-- File sizes (flag >200KB)
-- Formats (WebP/AVIF recommendations)
-- Responsive images (srcset, sizes)
-- Lazy loading
-- CLS prevention (dimensions)
+#### `/seo architecture <url>`
+
+URL structure design, navigation planning, internal linking strategy, hub-and-spoke models.
 
 ---
 
-### `/seo sitemap <url>`
+### Programmatic SEO
 
-Analyze existing XML sitemap.
+#### `/seo programmatic plan`
 
-**Example:**
-```
-/seo sitemap https://example.com/sitemap.xml
-```
+Scale content: data sources, templates, quality gates, index control, thin content safeguards.
 
-**What it validates:**
-- XML format
-- URL count (<50k per file)
-- URL status codes
-- lastmod accuracy
-- Deprecated tags (priority, changefreq)
-- Coverage vs crawled pages
+#### `/seo competitor-pages generate`
+
+Generate X vs Y comparison pages, "alternatives to X" pages, feature matrices with schema.
 
 ---
 
-### `/seo sitemap generate`
+### Monitoring
 
-Generate new sitemap with industry templates.
+#### `/seo monitor overview` / `/seo monitor keywords`
 
-**Example:**
-```
-/seo sitemap generate
-```
+Your site via Google Search Console: rankings, clicks, CTR, position changes. *(GSC)*
 
-**Process:**
-1. Select or auto-detect business type
-2. Interactive structure planning
-3. Apply quality gates (30/50 location page limits)
-4. Generate valid XML
-5. Create documentation
+#### `/seo serp check <keyword>`
 
----
+Live SERP check for any keyword: positions, SERP features, competitor domains. *(DataForSEO)*
 
-### `/seo plan <type>`
+#### `/seo ai-visibility domain <domain>`
 
-Strategic SEO planning.
+Track mentions in ChatGPT, Claude, Perplexity, Gemini, AI Overview. *(DataForSEO)*
 
-**Types:** `saas`, `local`, `ecommerce`, `publisher`, `agency`
+#### `/seo rank-tracking snapshot <domain>`
 
-**Example:**
-```
-/seo plan saas
-```
+Current rankings, position history, ranking changes, trending keywords, position alerts. *(DataForSEO)*
 
-**What it creates:**
-- Complete SEO strategy
-- Competitive analysis
-- Content calendar
-- Implementation roadmap (4 phases)
-- Site architecture design
+#### `/seo competitive-tracking overview <domain> <competitor>`
+
+Side-by-side comparison, shared keywords, competitor gains, threat detection, new content alerts. *(DataForSEO)*
+
+#### `/seo cwv-analytics overview <url>`
+
+CrUX real-user data, LCP subparts breakdown (TTFB + resource load delay + resource load time + render delay), INP diagnostics, CLS attribution, historical trends. *(Google API)*
 
 ---
 
-### `/seo competitor-pages [url|generate]`
+### Data
 
-Competitor comparison page generation.
+#### `/seo keywords research <seed>` / `/seo keywords site <domain>` / `/seo keywords gap <domain> <competitor>`
 
-**Examples:**
-```
-/seo competitor-pages https://example.com/vs/competitor
-/seo competitor-pages generate
-```
-
-**Capabilities:**
-- Generate "X vs Y" comparison page layouts
-- Create "Alternatives to X" page structures
-- Build feature comparison matrices with scoring
-- Generate Product + AggregateRating schema markup
-- Apply conversion-optimized CTA placement
-- Enforce fairness guidelines (accurate data, source citations)
+Keyword ideas, search volume, difficulty, intent classification, trend analysis, site rankings, keyword gap. *(DataForSEO)*
 
 ---
 
-### `/seo hreflang [url]`
+### Advanced
 
-Hreflang and international SEO audit and generation.
+#### `/seo semantic-search <url>`
 
-**Example:**
-```
-/seo hreflang https://example.com
-```
+Entity extraction, topical authority scoring, Knowledge Panel eligibility, entity relationship mapping, semantic content gap analysis.
 
-**Capabilities:**
-- Validate self-referencing hreflang tags
-- Check return tag reciprocity (A→B requires B→A)
-- Verify x-default tag presence
-- Validate ISO 639-1 language and ISO 3166-1 region codes
-- Check canonical URL alignment with hreflang
-- Detect protocol mismatches (HTTP vs HTTPS)
-- Generate correct hreflang link tags and sitemap XML
+#### `/seo content-localization <source-url> <localized-url>`
+
+Translation quality scoring, cultural adaptation checks, locale-specific keyword analysis, content parity comparison, regional content gap detection.
+
+#### `/seo blog-pipeline <keyword>`
+
+End-to-end blog production pipeline. See Content section above for subcommands.
 
 ---
 
-### `/seo programmatic [url|plan]`
+## Utility Scripts
 
-Programmatic SEO analysis and planning for pages generated at scale.
-
-**Examples:**
-```
-/seo programmatic https://example.com/tools/
-/seo programmatic plan
-```
-
-**Capabilities:**
-- Assess data source quality (CSV, JSON, API, database)
-- Plan template engines with unique content per page
-- Design URL pattern strategies (`/tools/[tool-name]`, `/[city]/[service]`)
-- Automate internal linking (hub/spoke, related items, breadcrumbs)
-- Enforce thin content safeguards (quality gates, word count thresholds)
-- Prevent index bloat (noindex low-value, pagination, faceted nav)
-
----
-
-## Quick Reference
-
-| Command | Use Case |
-|---------|----------|
-| `/seo audit <url>` | Full website audit |
-| `/seo competitor-pages [url\|generate]` | Competitor comparison pages |
-| `/seo content <url>` | E-E-A-T analysis |
-| `/seo geo <url>` | AI search optimization |
-| `/seo hreflang [url]` | Hreflang/i18n SEO audit |
-| `/seo images <url>` | Image optimization |
-| `/seo page <url>` | Single page analysis |
-| `/seo plan <type>` | Strategic planning |
-| `/seo programmatic [url\|plan]` | Programmatic SEO analysis |
-| `/seo schema <url>` | Schema validation |
-| `/seo sitemap <url>` | Sitemap validation |
-| `/seo sitemap generate` | Create new sitemap |
-| `/seo technical <url>` | Technical SEO check |
+| Script | Usage |
+|--------|-------|
+| `python3 scripts/health_check.py` | Validate installation, deps, credentials, skill integrity |
+| `python3 scripts/interactive_setup.py` | Guided first-run configuration wizard |
+| `python3 scripts/brand_mentions.py --brand "Name" --file response.txt` | Brand mention analysis from AI responses |
+| `python3 scripts/fetch_page.py <url>` | Fetch page with SSRF prevention |
+| `python3 scripts/parse_html.py <url>` | Extract SEO elements from HTML |
+| `python3 scripts/capture_screenshot.py <url> --all` | Capture screenshots (requires Playwright) |
+| `python3 scripts/analyze_visual.py <url> --json` | Visual analysis (requires Playwright) |
+| `python3 scripts/telemetry.py report` | View local usage statistics |
+| `python3 scripts/telemetry.py disable` | Opt out of local telemetry |

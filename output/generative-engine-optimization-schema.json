@@ -1,0 +1,35 @@
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Generative Engine Optimization (GEO): The 2026 Practitioner's Guide",
+  "description": "Learn how to optimize your content for AI search engines like ChatGPT, Perplexity, and Google AI Overviews. Proven GEO strategies that boost visibility 40%.",
+  "datePublished": "2026-03-10",
+  "dateModified": "2026-03-10",
+  "author": {
+    "@type": "Organization",
+    "name": "30x SEO Team",
+    "url": "https://github.com/norahe0304-art/30x-seo"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "30x SEO"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://example.com/blog/generative-engine-optimization-guide"
+  },
+  "wordCount": "3450",
+  "keywords": "generative engine optimization, GEO, AI search optimization, AI SEO, LLM visibility, AI Overviews optimization",
+  "about": [
+    {
+      "@type": "Thing",
+      "name": "Generative Engine Optimization",
+      "description": "The practice of optimizing web content to increase visibility in AI-powered search engines"
+    },
+    {
+      "@type": "Thing",
+      "name": "Search Engine Optimization",
+      "sameAs": "https://en.wikipedia.org/wiki/Search_engine_optimization"
+    }
+  ]
+}

@@ -12,7 +12,6 @@ import json
 import os
 import re
 import sys
-from typing import Optional
 from urllib.parse import urljoin, urlparse
 
 try:
@@ -22,7 +21,7 @@ except ImportError:
     sys.exit(1)
 
 
-def parse_html(html: str, base_url: Optional[str] = None) -> dict:
+def parse_html(html: str, base_url: str | None = None) -> dict:
     """
     Parse HTML and extract SEO-relevant elements.
 
@@ -169,7 +168,7 @@ def main():
         if not os.path.isfile(real_path):
             print(f"Error: File not found: {args.file}", file=sys.stderr)
             sys.exit(1)
-        with open(real_path, "r", encoding="utf-8") as f:
+        with open(real_path, encoding="utf-8") as f:
             html = f.read()
     else:
         html = sys.stdin.read()

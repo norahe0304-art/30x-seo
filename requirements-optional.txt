@@ -1,0 +1,5 @@
+# 30x SEO - Optional Dependencies
+# Only install if you need screenshot capture functionality
+
+playwright>=1.56.0,<2.0.0         # CVE-2025-59288 fix (macOS)
+# After installing: playwright install chromium

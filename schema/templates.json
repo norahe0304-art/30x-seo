@@ -208,6 +208,118 @@
           }
         }
       }
+    },
+    {
+      "type": "WebApplication",
+      "description": "Browser-based SaaS applications. Use WebApplication (not SoftwareApplication) for tools accessed via browser. Enables software rich results.",
+      "template": {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "[App Name]",
+        "description": "[App Description]",
+        "url": "[App URL]",
+        "applicationCategory": "[Category, e.g. BusinessApplication]",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires JavaScript",
+        "offers": {
+          "@type": "Offer",
+          "price": "[0]",
+          "priceCurrency": "USD"
+        },
+        "author": {
+          "@type": "Organization",
+          "name": "[Company Name]"
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "[4.5]",
+          "ratingCount": "[120]"
+        }
+      }
+    },
+    {
+      "type": "SearchAction",
+      "description": "Sitelinks search box for site-specific search. Enables search box directly in Google SERP for your domain.",
+      "template": {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "[Site Name]",
+        "url": "[Site URL]",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "[Site URL]/search?q={search_term_string}"
+          },
+          "query-input": "required name=search_term_string"
+        }
+      }
+    },
+    {
+      "type": "ConferenceEvent",
+      "description": "Conference and professional event pages. Added in Schema.org v29.4 (2025). Includes sessions, speakers, and registration.",
+      "template": {
+        "@context": "https://schema.org",
+        "@type": "Event",
+        "name": "[Conference Name]",
+        "description": "[Conference Description]",
+        "startDate": "[YYYY-MM-DDTHH:MM:SSZ]",
+        "endDate": "[YYYY-MM-DDTHH:MM:SSZ]",
+        "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+        "eventStatus": "https://schema.org/EventScheduled",
+        "location": {
+          "@type": "Place",
+          "name": "[Venue Name]",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "[Street]",
+            "addressLocality": "[City]",
+            "addressCountry": "[Country]"
+          }
+        },
+        "organizer": {
+          "@type": "Organization",
+          "name": "[Organizer Name]",
+          "url": "[Organizer URL]"
+        },
+        "offers": {
+          "@type": "Offer",
+          "url": "[Registration URL]",
+          "price": "[199]",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock",
+          "validFrom": "[YYYY-MM-DD]"
+        }
+      }
+    },
+    {
+      "type": "LoyaltyProgram",
+      "description": "Loyalty and rewards programs. Added in Schema.org v29.4 (2025). Enhances e-commerce rich results with program benefits.",
+      "template": {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "[Product Name]",
+        "offers": {
+          "@type": "Offer",
+          "price": "[Price]",
+          "priceCurrency": "USD",
+          "hasMemberProgram": {
+            "@type": "MemberProgram",
+            "name": "[Program Name, e.g. Rewards Plus]",
+            "membershipPointsEarned": "[Points earned per purchase]",
+            "hasTiers": [
+              {
+                "@type": "MemberProgramTier",
+                "name": "[Tier Name, e.g. Gold]",
+                "hasMemberBenefit": {
+                  "@type": "Offer",
+                  "description": "[Benefit, e.g. 10% discount on all orders]"
+                }
+              }
+            ]
+          }
+        }
+      }
     }
   ]
 }

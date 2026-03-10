@@ -8,6 +8,7 @@ description: >
 allowed-tools:
   - Bash
   - Read
+maturity: stable
 ---
 
 # SEO SERP Tracking
