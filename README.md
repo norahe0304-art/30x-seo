@@ -7,11 +7,11 @@
 ╚═════╝  ╚═════╝ ╚═╝  ╚═╝    ╚══════╝╚══════╝ ╚═════╝
 ```
 
-> 23 production-ready SEO skills + Squirrelscan CLI for Claude Code, organized in 8 categories. Full-stack SEO automation: audits, technical SEO, links, content, planning, programmatic SEO, monitoring, and keyword research.
+> 24 production-ready SEO skills + Squirrelscan CLI for Claude Code, organized in 9 categories. Full-stack SEO automation: audits, technical SEO, links, content, planning, programmatic SEO, monitoring, local SEO, and keyword research.
 
 ## Why 30x SEO?
 
-- **Complete Coverage**: 8 categories, 23 skills, full SEO workflow
+- **Complete Coverage**: 9 categories, 24 skills, full SEO workflow
 - **AI-Native**: Built for Claude Code, not retrofitted from legacy tools
 - **2026 Ready**: AI Overviews, GEO optimization, LLM citation tracking
 - **No MCP Dependencies**: Direct API calls, zero middleware issues
@@ -22,7 +22,7 @@
 npx skills add norahe0304-art/30x-seo
 ```
 
-That's it. One command installs all 23 skills.
+That's it. One command installs all 24 skills.
 
 **Optional: Configure DataForSEO** (for keywords/backlinks/SERP/AI visibility)
 
@@ -33,13 +33,13 @@ chmod 600 ~/.config/dataforseo/auth
 
 ---
 
-## Skills Overview (8 Categories, 23 Skills + 1 Orchestrator)
+## Skills Overview (9 Categories, 24 Skills + 1 Orchestrator)
 
 ### Main Orchestrator
 
 | Skill | What it does |
 |-------|--------------|
-| `seo` | Master orchestrator: routes commands to 23 sub-skills, spawns 6 parallel subagents, auto-detects industry type |
+| `seo` | Master orchestrator: routes commands to 24 sub-skills, spawns 6 parallel subagents, auto-detects industry type |
 
 ### 1. Audit (1 skill + CLI)
 
@@ -99,7 +99,13 @@ chmod 600 ~/.config/dataforseo/auth
 | `30x-seo-serp` | Track any site's SERP rankings, features, historical data *(DataForSEO)* |
 | `30x-seo-ai-visibility` | Track mentions in ChatGPT, Claude, Perplexity, Gemini, AI Overview *(DataForSEO)* |
 
-### 8. Data (1 skill)
+### 8. Local SEO (1 skill)
+
+| Skill | What it does |
+|-------|--------------|
+| `30x-seo-local` | GBP audit, NAP consistency, review strategy, local schema, Gemini Ask Maps optimization |
+
+### 9. Data (1 skill)
 
 | Skill | What it does |
 |-------|--------------|
@@ -136,6 +142,9 @@ squirrelscan audit https://example.com --format llm
 /seo programmatic plan
 /seo competitor-pages generate
 
+# Local SEO
+/seo local "Business Name" https://example.com
+
 # Monitoring
 /seo monitor overview                     # GSC - your site
 /seo monitor keywords                     # GSC - your rankings
@@ -158,10 +167,11 @@ squirrelscan audit https://example.com --format llm
 | Content | 6 | WebFetch |
 | Planning | 2 | WebFetch |
 | Programmatic SEO | 2 | WebFetch |
+| Local SEO | 1 | WebFetch |
 | Monitoring | 3 | GSC + DataForSEO |
 | Data | 1 | DataForSEO |
 
-**18 skills work without any API. 4 skills require DataForSEO. 1 skill requires Google Search Console.**
+**19 skills work without any API. 4 skills require DataForSEO. 1 skill requires Google Search Console.**
 
 ---
 
