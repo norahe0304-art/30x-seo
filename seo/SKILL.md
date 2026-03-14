@@ -1,7 +1,7 @@
 ---
 name: seo
 description: >
-  Master SEO orchestrator with 23 specialized sub-skills across 8 categories.
+  Master SEO orchestrator with 24 specialized sub-skills across 9 categories.
   Comprehensive SEO analysis for any website or business type. Performs full site
   audits, single-page deep analysis, technical SEO checks (crawlability, indexability,
   Core Web Vitals with INP), schema markup, content quality (E-E-A-T framework),
@@ -21,13 +21,13 @@ allowed-tools:
   - WebFetch
 ---
 
-# SEO — Master Orchestrator (23 Sub-Skills)
+# SEO — Master Orchestrator (24 Sub-Skills)
 
 [PROTOCOL]: Update this header on changes
 
 Comprehensive SEO analysis across all industries (SaaS, local services,
-e-commerce, publishers, agencies). Orchestrates **23 specialized sub-skills**
-organized in 8 categories, plus 6 parallel subagents for audits.
+e-commerce, publishers, agencies). Orchestrates **24 specialized sub-skills**
+organized in 9 categories, plus 6 parallel subagents for audits.
 
 ---
 
@@ -36,6 +36,7 @@ organized in 8 categories, plus 6 parallel subagents for audits.
 ### 1. Audit
 | Command | What it does |
 |---------|-------------|
+| `/seo audit <url>` | **Full-site audit** — first run `squirrelscan audit <url> --format llm` (if installed), then spawn subagents for deep analysis |
 | `/seo page <url>` | Deep single-page analysis: title, meta, headings, links, images, Schema, E-E-A-T |
 | `squirrelscan audit <url>` | Full-site 230+ rules audit via CLI (`npm i -g squirrelscan`) |
 
@@ -85,7 +86,12 @@ organized in 8 categories, plus 6 parallel subagents for audits.
 | `/seo serp check <keyword>` | Live SERP check for any keyword *(DataForSEO)* |
 | `/seo ai-visibility domain <domain>` | Track mentions in ChatGPT, Claude, Perplexity, AI Overview *(DataForSEO)* |
 
-### 8. Data
+### 8. Local SEO
+| Command | What it does |
+|---------|-------------|
+| `/seo local <business> <url>` | GBP audit, NAP consistency, reviews, local schema, competitor benchmarking, Ask Maps optimization |
+
+### 9. Data
 | Command | What it does |
 |---------|-------------|
 | `/seo keywords research <seed>` | Ideas, volume, difficulty, intent, trends *(DataForSEO)* |
@@ -121,16 +127,20 @@ organized in 8 categories, plus 6 parallel subagents for audits.
 | `serp` | 30x-seo-serp |
 | `ai-visibility` | 30x-seo-ai-visibility |
 | `keywords` | 30x-seo-keywords |
+| `local` | 30x-seo-local |
+| `audit` | squirrelscan (CLI) + subagents |
 
 ---
 
 ## Orchestration Logic
 
-When user invokes `/seo audit`, delegate to subagents in parallel:
-1. Detect business type (SaaS, local, ecommerce, publisher, agency, other)
-2. Spawn subagents: technical, content, schema, sitemap, performance, visual
-3. Collect results and generate unified report with SEO Health Score (0-100)
-4. Create prioritized action plan (Critical → High → Medium → Low)
+When user invokes `/seo audit`, follow this sequence:
+1. **First**: Check if `squirrelscan` is installed (`which squirrelscan`). If yes, run `squirrelscan audit <url> --format llm` for the full-site scan (230+ rules, 0-100 score). If not installed, skip and note recommendation to install.
+2. Detect business type (SaaS, local, ecommerce, publisher, agency, other)
+3. If **local business detected** → also trigger `30x-seo-local` for GBP/Maps audit
+4. Spawn subagents: technical, content, schema, sitemap, performance, visual
+5. Collect results and generate unified report with SEO Health Score (0-100)
+6. Create prioritized action plan (Critical → High → Medium → Low)
 
 ---
 
@@ -178,7 +188,7 @@ Hard rules:
 
 ---
 
-## Sub-Skills (23 Total, 8 Categories)
+## Sub-Skills (24 Total, 9 Categories)
 
 ### 1. Audit (1 skill + CLI)
 | Skill | What it does |
@@ -231,7 +241,12 @@ Hard rules:
 | **30x-seo-serp** | Any site via DataForSEO |
 | **30x-seo-ai-visibility** | AI search visibility |
 
-### 8. Data (1 skill)
+### 8. Local SEO (1 skill)
+| Skill | What it does |
+|-------|-------------|
+| **30x-seo-local** | GBP audit, NAP, reviews, local schema, competitors, Ask Maps, AI Local Pack |
+
+### 9. Data (1 skill)
 | Skill | What it does |
 |-------|-------------|
 | **30x-seo-keywords** | Keyword research *(DataForSEO)* |
@@ -248,10 +263,11 @@ Hard rules:
 | Content | 6 | WebFetch |
 | Planning | 2 | WebFetch |
 | Programmatic SEO | 2 | WebFetch |
+| Local SEO | 1 | WebFetch |
 | Monitoring | 3 | GSC + DataForSEO |
 | Data | 1 | DataForSEO |
 
-**18 skills work without any API. 4 skills require DataForSEO. 1 skill requires Google Search Console.**
+**19 skills work without any API. 4 skills require DataForSEO. 1 skill requires Google Search Console.**
 
 ---
 
