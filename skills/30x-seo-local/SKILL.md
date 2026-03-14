@@ -3,9 +3,11 @@ name: 30x-seo-local
 description: >
   Local SEO audit and optimization for Google Business Profile, Google Maps,
   and Gemini Ask Maps. Covers GBP completeness, NAP consistency, review strategy,
-  local schema, GeoGrid visibility, and AI-powered Maps optimization.
+  local schema, competitor benchmarking, GeoGrid visibility, multi-location,
+  AI Local Pack readiness, and GBP suspension prevention.
   Use when user says "local SEO", "Google Business Profile", "GBP", "Google Maps",
-  "Ask Maps", "local pack", "NAP audit", "local citations", "review strategy".
+  "Ask Maps", "local pack", "NAP audit", "local citations", "review strategy",
+  "local competitors", "multi-location", "GBP suspended".
 allowed-tools:
   - WebFetch
   - Bash
@@ -39,6 +41,24 @@ Ask user for:
 | Service area / city | ✅ | "San Francisco, CA" |
 | GBP URL (if known) | Optional | Google Maps link |
 | Target keywords | Optional | "specialty coffee SF" |
+| Competitors (2-3) | Optional | Names or GBP URLs |
+| Multi-location? | Optional | Number of locations |
+
+#### GSC Data Integration (Optional)
+
+If user has Google Search Console access, pull local query data via `seo-monitor`:
+
+```
+/seo monitor keywords
+```
+
+Extract from GSC:
+- Queries containing city/area names → local keyword baseline
+- CTR by local keyword → identify underperformers
+- Average position for "[category] near me" patterns
+- Impressions vs clicks gap → missed local opportunities
+
+This data informs Steps 2-9 with real performance context.
 
 ---
 
@@ -92,6 +112,60 @@ Drive bookings directly from GBP without customers leaving Google:
 - **Do NOT link to a page that already ranks organically** — Google penalizes duplicate rankings
 - Link to a dedicated local landing page optimized for GBP traffic
 
+#### Industry-Specific Optimization
+
+Google released industry-specific GBP Playbooks (March 2026). Apply vertical optimizations during audit:
+
+**Food & Drink**:
+- Menu data must be current and complete (add menu URL)
+- Enable online ordering + reservation links
+- Professional food photography is non-negotiable
+- Weekly posts on specials, seasonal menus, events
+
+**Service Businesses** (plumbers, cleaners, HVAC, etc.):
+- Define service areas clearly (no physical address display if SAB)
+- Emphasize emergency availability and response times
+- List all certifications, licenses, insurance
+- Before/after project photos build visual credibility
+
+**Hotels & Accommodations**:
+- Class ratings and amenity lists
+- Room photos, lobby, facilities
+- Check-in/check-out times in hours
+- Enable Reserve with Google
+
+**Tours & Attractions**:
+- Seasonal hours and availability
+- Pricing tiers in products/services
+- Activity photos from real customers
+- Link to booking system
+
+#### GBP Pro Tips (Sterling Sky Research)
+
+| Tip | Why |
+|-----|-----|
+| Set **opening date** to oldest legitimate date | Builds credibility. Use company history, not just current location opening. Google may populate a random date if blank |
+| **Extend business hours** when possible | Google favors accessible businesses. 24/7 via answering service = ranking advantage |
+| **Do NOT link GBP to a page with existing organic rankings** | Google penalizes duplicate ranking — use a dedicated local page |
+| Remove "onsite services" and "online appointment" attributes | They hide review visibility from your profile |
+| Add **up to 7 social profiles** | Only 5 display. Google may show social posts. This is a secondary credibility layer for AI engines |
+
+#### GBP Suspension Red Lines
+
+These actions **will get your GBP suspended** — never do them:
+
+| Violation | Example | Risk |
+|-----------|---------|------|
+| **Keyword stuffing in business name** | "Joe's Coffee - Best Coffee Shop San Francisco CA" | Immediate suspension |
+| **Fake address / virtual office** | Using a PO Box or coworking space you don't occupy | Suspension + permanent distrust |
+| **Wrong category to game rankings** | Plumber listing as "Emergency Service" | Suspension + ranking penalty |
+| **Multiple listings for same location** | Creating 2 GBPs for one address | Both suspended |
+| **Fake reviews / review gating** | Buying reviews or only asking happy customers | Review removal + penalty |
+| **Stock photos as business photos** | Using generic images not of actual business | Photo removal + trust penalty |
+| **Operating outside stated area** | SAB claiming service areas you don't serve | Ranking penalty |
+
+**If suspended**: Do NOT create a new profile. Appeal through GBP support with proof of legitimacy (utility bill, business license, photos of signage).
+
 **Scoring**:
 ```
 GBP Score = filled fields / total applicable fields × 100
@@ -104,37 +178,120 @@ GBP Score = filled fields / total applicable fields × 100
 
 ---
 
-### Step 3: NAP Consistency Check
+### Step 3: NAP Consistency Check (Executable)
 
 **NAP = Name, Address, Phone** — must be identical everywhere.
 
-Check consistency across:
+#### Platform Audit Process
 
-| Platform | Priority |
-|----------|----------|
-| Google Business Profile | Critical |
-| Website (footer, contact page) | Critical |
-| Apple Maps / Apple Business Connect | High |
-| Bing Places | High |
-| Yelp | High |
-| Facebook | High |
-| Industry directories | Medium |
-| Local chambers / associations | Medium |
+For each platform, use WebFetch to extract and compare NAP data:
+
+| Platform | URL to Check | Fields to Extract | Priority |
+|----------|-------------|-------------------|----------|
+| Google Business Profile | GBP URL (from Step 1) | Name, address, phone, website, hours | Critical |
+| Website footer | `[domain]` — check footer/contact | Name, address, phone | Critical |
+| Website contact page | `[domain]/contact` | Full NAP, map embed, schema | Critical |
+| Yelp | `yelp.com/biz/[business-slug]` | Name, address, phone, hours, categories | High |
+| Facebook | `facebook.com/[page]` | Name, address, phone, hours | High |
+| Apple Maps | Search Apple Maps web | Name, address, phone | High |
+| Bing Places | `bing.com/maps` search | Name, address, phone | High |
+| BBB | `bbb.org` search | Name, address, phone | Medium |
+| Industry directories | Vertical-specific (Healthgrades, Avvo, HomeAdvisor, etc.) | Name, address, phone | Medium |
+
+#### Comparison Method
+
+Build a NAP consistency table:
+
+```markdown
+| Platform | Name | Address | Phone | Match? |
+|----------|------|---------|-------|--------|
+| GBP (canonical) | Joe's Coffee | 123 Main St, SF, CA 94105 | (415) 555-1234 | — |
+| Website footer | Joe's Coffee | 123 Main Street, SF, CA 94105 | 415-555-1234 | ❌ Address format, phone format |
+| Yelp | Joe's Coffee Shop | 123 Main St, San Francisco, CA | (415) 555-1234 | ❌ Name has "Shop", city not abbreviated |
+| Facebook | Joe's Coffee | 123 Main St, SF, CA 94105 | (415) 555-1234 | ✅ |
+```
+
+#### Fix Protocol
+
+1. Choose GBP listing as canonical source of truth
+2. Standardize format: full street type ("Street" not "St"), consistent phone format, exact business name
+3. Update each platform to match canonical — document changes
+4. Re-check in 30 days (some platforms take time to reflect)
 
 **Common Issues**:
 ```
 ❌ "123 Main St" vs "123 Main Street" vs "123 Main St."
 ❌ "(415) 555-1234" vs "415-555-1234" vs "+1 415 555 1234"
 ❌ "Joe's Coffee" vs "Joe's Coffee Shop" vs "Joe's Coffee LLC"
+❌ Suite/Unit number present on some, missing on others
+❌ Old phone number on forgotten directories
 ```
-
-**Fix**: Standardize to one canonical format, update everywhere.
 
 ---
 
-### Step 4: Local Schema Audit
+### Step 4: Local Schema Audit (Industry-Specific)
 
-Check website for LocalBusiness schema markup:
+Check website for LocalBusiness schema markup. Use the **most specific subtype** for richer results:
+
+#### Schema Subtype Selection
+
+| Business Type | Schema Type | Key Extra Properties |
+|--------------|-------------|---------------------|
+| Generic local business | `LocalBusiness` | — |
+| Restaurant / cafe | `Restaurant` or `CafeOrCoffeeShop` | `menu`, `servesCuisine`, `acceptsReservations` |
+| Hotel / B&B | `LodgingBusiness` or `Hotel` | `starRating`, `checkinTime`, `checkoutTime`, `amenityFeature` |
+| Plumber / HVAC / electrician | `HomeAndConstructionBusiness` or `Plumber` | `areaServed`, `hasOfferCatalog` |
+| Doctor / dentist | `MedicalBusiness` or `Dentist` | `medicalSpecialty`, `availableService` |
+| Lawyer | `LegalService` or `Attorney` | `areaServed`, `knowsAbout` |
+| Tour operator | `TouristAttraction` or `TravelAgency` | `tourBookingPage`, `availableLanguage` |
+| Gym / fitness | `SportsActivityLocation` | `amenityFeature` |
+| Beauty salon / spa | `BeautySalon` or `DaySpa` | `availableService` |
+| Auto repair | `AutoRepair` | `availableService`, `areaServed` |
+
+#### Restaurant Schema Example
+
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "Restaurant",
+  "name": "Business Name",
+  "image": "https://example.com/photo.jpg",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "123 Main St",
+    "addressLocality": "San Francisco",
+    "addressRegion": "CA",
+    "postalCode": "94105",
+    "addressCountry": "US"
+  },
+  "telephone": "+1-415-555-1234",
+  "url": "https://example.com",
+  "menu": "https://example.com/menu",
+  "servesCuisine": "Italian",
+  "acceptsReservations": true,
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+      "opens": "11:00",
+      "closes": "22:00"
+    }
+  ],
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 37.7749,
+    "longitude": -122.4194
+  },
+  "priceRange": "$$",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.5",
+    "reviewCount": "230"
+  }
+}
+```
+
+#### Generic LocalBusiness Schema Example
 
 ```json
 {
@@ -174,14 +331,17 @@ Check website for LocalBusiness schema markup:
 }
 ```
 
+#### Schema Validation Checklist
+
 | Check | Status |
 |-------|--------|
-| LocalBusiness or subtype present | ✅/❌ |
+| Most specific subtype used (not generic LocalBusiness) | ✅/❌ |
 | NAP matches GBP exactly | ✅/❌ |
 | GeoCoordinates present | ✅/❌ |
 | OpeningHours present | ✅/❌ |
 | AggregateRating present | ✅/❌ |
-| Multiple locations handled | ✅/❌/N/A |
+| Industry-specific properties filled | ✅/❌ |
+| Multiple locations: each has own schema | ✅/❌/N/A |
 
 ---
 
@@ -241,7 +401,60 @@ Frequency > quantity. 4 reviews/week beats 50 reviews once then silence.
 
 ---
 
-### Step 6: Gemini Ask Maps Optimization
+### Step 6: Competitor Benchmarking
+
+Local SEO is a **zero-sum game** — in AI Local Pack, only 1-2 businesses win. You must know what you're competing against.
+
+#### Identify Top 3 Local Competitors
+
+Methods:
+1. Search `[primary category] in [city]` on Google Maps — top 3 in Local Pack are your competitors
+2. Search `[target keyword]` — who shows in AI Local Pack?
+3. Ask user directly
+
+#### Competitor Audit Matrix
+
+For each competitor, use WebFetch on their GBP and website to build:
+
+```markdown
+| Dimension | Your Business | Competitor A | Competitor B | Competitor C |
+|-----------|--------------|-------------|-------------|-------------|
+| **GBP Category** | Coffee shop | Coffee shop | Cafe | Breakfast restaurant |
+| **Secondary Categories** | 2 | 4 | 1 | 3 |
+| **Total Reviews** | 45 | 230 | 89 | 156 |
+| **Avg Rating** | 4.3 | 4.6 | 4.1 | 4.4 |
+| **Review Velocity** | ~2/week | ~8/week | ~1/week | ~4/week |
+| **Photos Count** | 23 | 150+ | 45 | 80 |
+| **Posts Frequency** | None | Weekly | None | Monthly |
+| **Attributes Filled** | 5/15 | 12/15 | 3/15 | 9/15 |
+| **Website Has Schema** | ❌ | ✅ Restaurant | ❌ | ✅ LocalBusiness |
+| **Booking Enabled** | ❌ | ✅ Reserve | ❌ | ✅ Custom link |
+| **Social Links** | 2 | 5 | 1 | 4 |
+| **Q&A Entries** | 0 | 12 | 2 | 5 |
+```
+
+#### Gap Analysis Output
+
+```markdown
+## Competitive Gaps (Prioritized)
+
+### You're Behind On:
+1. 🔴 Reviews: 45 vs competitor avg 158 — need aggressive review velocity program
+2. 🔴 Photos: 23 vs competitor avg 92 — upload 70+ quality photos
+3. 🟠 Attributes: 5/15 vs competitor avg 8/15 — fill all relevant attributes
+
+### You're Ahead On:
+1. ✅ Rating: 4.3 vs competitor avg 4.2 — maintain quality
+2. ✅ Hours: Open later than 2 of 3 competitors
+
+### Quick Wins to Leapfrog:
+1. No competitor has Q&A populated — first mover advantage
+2. Only 1 competitor posts weekly — match them immediately
+```
+
+---
+
+### Step 7: Gemini Ask Maps Optimization
 
 This is the **2026 update** — Google Maps now uses Gemini AI for conversational search ("Ask Maps"). The ranking model shifted from keyword matching to intent understanding.
 
@@ -290,7 +503,7 @@ Strategy:
 
 ---
 
-### Step 7: AI Local Pack Reality (2026)
+### Step 8: AI Local Pack Readiness (2026)
 
 Google is rolling out AI-generated local packs that fundamentally change visibility:
 
@@ -309,13 +522,39 @@ Google is rolling out AI-generated local packs that fundamentally change visibil
 
 **Action items**:
 - GBP optimization must be flawless (no room for "good enough")
-- Consider Local Services Ads for competitive categories
 - Multi-location businesses have a structural advantage over single-location
 - Diversify traffic sources: YouTube, Reddit, social — don't depend solely on Maps
 
+#### Local Services Ads (LSA) Readiness
+
+LSAs now cover 31% of local queries — ignoring them is leaving money on the table.
+
+**What LSAs are**: Pay-per-lead ads at the very top of Google results with "Google Guaranteed" or "Google Screened" badges.
+
+**Available categories**: Home services, legal, financial, healthcare, real estate, auto, pet care, and expanding.
+
+**Setup checklist**:
+- [ ] Check eligibility: `ads.google.com/local-services-ads`
+- [ ] Complete background check / license verification
+- [ ] Set weekly budget (pay per lead, not per click)
+- [ ] Define service areas and job types
+- [ ] Enable message leads + phone leads
+- [ ] Track lead quality — dispute bad leads within 30 days
+
+**When to recommend LSAs**:
+- Competitive local market (high-value services)
+- You're not in the top 2 organic Local Pack positions
+- Service-based business (plumbing, legal, dental, HVAC)
+- Budget available: typical CPL ranges $20-$150 depending on category
+
+**When NOT to recommend**:
+- Already dominating organic Local Pack
+- Category not supported by LSAs
+- No capacity to handle additional leads
+
 ---
 
-### Step 8: Local Content Strategy
+### Step 9: Local Content Strategy
 
 Website content that supports local search:
 
@@ -331,12 +570,57 @@ Website content that supports local search:
 - H1: [Service] in [City] — [Business Name]
 - Unique description (300+ words, not duplicated across locations)
 - Embedded Google Map
-- LocalBusiness schema
+- Industry-specific schema (see Step 4)
 - NAP in structured format
 - Service list
 - Customer testimonials from that area
 - Driving directions from landmarks
 - Parking information
+
+---
+
+### Step 10: Multi-Location Management
+
+Skip this step for single-location businesses.
+
+#### Core Challenges
+
+| Challenge | Wrong Approach | Right Approach |
+|-----------|---------------|----------------|
+| Brand consistency | One GBP for all locations | **Separate GBP per physical location** |
+| Content duplication | Same description copy-pasted | **Unique 300+ word description per location** |
+| Review management | One review response template | **Location-specific responses referencing local details** |
+| Schema markup | One schema block | **Separate LocalBusiness schema per location page** |
+| Landing pages | One page listing all locations | **Dedicated landing page per location** |
+
+#### Multi-Location Checklist
+
+- [ ] Each location has its own GBP with unique phone number
+- [ ] Each location has a dedicated landing page (not `/locations` with a list)
+- [ ] Each landing page has unique content (not template fill-in-the-blank)
+- [ ] Each location page has its own LocalBusiness schema
+- [ ] NAP is consistent per-location across all platforms
+- [ ] Reviews are managed per-location (respond with local context)
+- [ ] Google Posts are per-location (local events, local offers)
+- [ ] Photos are per-location (actual storefront, actual team, actual interior)
+
+#### Location Page Differentiation
+
+Avoid the "same page, different city name" trap. Each location page must include:
+- Unique staff bios or team photos
+- Neighborhood-specific directions and parking info
+- Local testimonials from customers in that area
+- Location-specific services or specialties
+- Community involvement / local partnerships
+- Unique meta title and description
+
+#### Store Locator Best Practices
+
+If 5+ locations, implement a store locator:
+- Search by zip/city/current location
+- Each result links to dedicated location page (not GBP directly)
+- Schema: use `Organization` as parent, individual `LocalBusiness` for each location
+- Internal linking: hub-and-spoke from locator to location pages
 
 ---
 
@@ -352,18 +636,30 @@ Generated: [Date]
 
 ## GBP Completeness: XX/100  ████████░░
 - [List of missing/incomplete fields]
+- Industry-specific gaps: [vertical-specific missing items]
+- Suspension risk: [any red line violations detected]
 
 ## NAP Consistency: XX/100  ██████████
-- [Inconsistencies found]
+- Platforms checked: X
+- Inconsistencies found: X
+- [Table of discrepancies]
 
 ## Reviews: XX/100  ███████░░░
 - Rating: X.X ⭐ (X reviews)
-- Velocity: X/month
+- Velocity: X/week
 - Response rate: X%
 - Key themes: [positive], [negative]
+- vs. Competitors: [behind/ahead by X reviews]
 
 ## Local Schema: XX/100  █████░░░░░
+- Schema type: [current] → Recommended: [industry subtype]
 - [Missing markup elements]
+
+## Competitor Benchmark: XX/100  ██████░░░░
+- Local Pack position: #X of 3
+- Review gap: [X reviews behind leader]
+- Attribute gap: [X/Y vs competitor avg]
+- [Top 3 gaps to close]
 
 ## Ask Maps Readiness: XX/100  ████████░░
 - Attributes: X/Y filled
@@ -371,11 +667,24 @@ Generated: [Date]
 - Posts: [frequency]
 - Photo freshness: [last updated]
 
+## AI Local Pack Readiness: XX/100  ███████░░░
+- Traditional Pack presence: [yes/no]
+- AI Pack presence: [yes/no/unknown]
+- LSA opportunity: [eligible/not eligible/already running]
+- Multi-channel diversification: [strong/weak]
+
+## Multi-Location Status (if applicable): XX/100
+- Locations audited: X
+- Locations with unique content: X/Y
+- Locations with own schema: X/Y
+
 ## Priority Actions
-1. 🔴 [Critical action]
-2. 🟠 [High priority]
-3. 🟡 [Medium priority]
-4. 🟢 [Quick win]
+1. 🔴 [Critical action — suspension risk or major gap]
+2. 🔴 [Critical action — competitive disadvantage]
+3. 🟠 [High priority — quick win with large impact]
+4. 🟠 [High priority]
+5. 🟡 [Medium priority]
+6. 🟢 [Quick win]
 ```
 
 ### Deliverables
@@ -383,53 +692,14 @@ Generated: [Date]
 | Output | Format |
 |--------|--------|
 | GBP optimization checklist | Markdown checklist |
-| NAP corrections | Table of changes needed |
-| LocalBusiness schema | Ready-to-use JSON-LD |
+| NAP consistency table | Comparison matrix with fixes |
+| Industry-specific schema | Ready-to-use JSON-LD |
 | Review strategy | Action plan with templates |
+| Competitor benchmark matrix | Side-by-side comparison |
 | Ask Maps optimization plan | Prioritized checklist |
+| AI Local Pack + LSA assessment | Readiness report |
 | Location page template | HTML/content structure |
-
----
-
-## Industry-Specific Guidance
-
-Google released industry-specific GBP Playbooks (March 2026). Apply these vertical optimizations:
-
-### Food & Drink Businesses
-- Menu data must be current and complete (add menu URL)
-- Enable online ordering + reservation links
-- Professional food photography is non-negotiable
-- Weekly posts on specials, seasonal menus, events
-
-### Service Businesses (plumbers, cleaners, HVAC, etc.)
-- Define service areas clearly (no physical address display if SAB)
-- Emphasize emergency availability and response times
-- List all certifications, licenses, insurance
-- Before/after project photos build visual credibility
-
-### Hotels & Accommodations
-- Class ratings and amenity lists
-- Room photos, lobby, facilities
-- Check-in/check-out times in hours
-- Enable Reserve with Google
-
-### Tours & Attractions
-- Seasonal hours and availability
-- Pricing tiers in products/services
-- Activity photos from real customers
-- Link to booking system
-
----
-
-## GBP Pro Tips (Sterling Sky Research)
-
-| Tip | Why |
-|-----|-----|
-| Set **opening date** to oldest legitimate date | Builds credibility. Use company history, not just current location opening. Google may populate a random date if blank |
-| **Extend business hours** when possible | Google favors accessible businesses. 24/7 via answering service = ranking advantage |
-| **Do NOT link GBP to a page with existing organic rankings** | Google penalizes duplicate ranking — use a dedicated local page |
-| Remove "onsite services" and "online appointment" attributes | They hide review visibility from your profile |
-| Add **up to 7 social profiles** | Only 5 display. Google may show social posts. This is a secondary credibility layer for AI engines |
+| Multi-location audit (if applicable) | Per-location checklist |
 
 ---
 
@@ -437,6 +707,7 @@ Google released industry-specific GBP Playbooks (March 2026). Apply these vertic
 
 | Related Skill | When to Use Together |
 |---------------|---------------------|
+| seo-monitor | Pull GSC data for local keyword performance |
 | seo-schema | Deep schema validation beyond LocalBusiness |
 | seo-content-audit | Audit location page content quality |
 | seo-keywords | Local keyword research and search volume |
@@ -454,9 +725,12 @@ Google released industry-specific GBP Playbooks (March 2026). Apply these vertic
 | GBP completeness | Monthly |
 | Review metrics | Weekly |
 | NAP consistency | Quarterly |
+| Competitor benchmark | Monthly |
 | Ask Maps self-test | Bi-weekly |
 | Local Pack position | Weekly |
 | Schema validation | After page changes |
+| LSA lead quality | Weekly (if running) |
+| Multi-location audit | Quarterly |
 
 ---
 
