@@ -136,13 +136,32 @@ organized in 9 categories, plus 6 parallel subagents for audits.
 
 ## Orchestration Logic
 
-When user invokes `/seo audit`, follow this sequence:
-1. **First**: Check if `squirrelscan` is installed (`which squirrelscan`). If yes, run `squirrelscan audit <url> --format llm` for the full-site scan (230+ rules, 0-100 score). If not installed, skip and note recommendation to install.
-2. Detect business type (SaaS, local, ecommerce, publisher, agency, other)
-3. If **local business detected** → also trigger `30x-seo-local` for GBP/Maps audit
-4. Spawn subagents: technical, content, schema, sitemap, performance, visual
-5. Collect results and generate unified report with SEO Health Score (0-100)
-6. Create prioritized action plan (Critical → High → Medium → Low)
+### MANDATORY: `/seo audit` Execution Order
+
+**CRITICAL: When user says "audit", "full audit", "SEO audit", or `/seo audit`, you MUST follow this exact sequence. Do NOT skip Step 1. Do NOT jump directly to sub-skills.**
+
+**Step 1 — Squirrelscan (BLOCKING — run this BEFORE anything else)**:
+```bash
+which squirrelscan && squirrelscan audit <url> --format llm
+```
+- If installed: run it FIRST, wait for results, then proceed to Step 2
+- If NOT installed: tell user `npm i -g squirrelscan` to get 230+ rule full-site scan, then proceed to Step 2
+- This step provides the global health score (0-100) that frames the entire audit
+
+**Step 2 — Industry Detection**:
+Detect business type from homepage (SaaS, local, ecommerce, publisher, agency, other)
+
+**Step 3 — Local Business Check**:
+If local business detected → also trigger `30x-seo-local` for GBP/Maps/Ask Maps audit
+
+**Step 4 — Spawn Sub-Skill Agents** (parallel):
+technical, content, schema, sitemap, performance, visual
+
+**Step 5 — Unified Report**:
+Combine squirrelscan score + sub-skill results into SEO Health Score (0-100)
+
+**Step 6 — Action Plan**:
+Prioritized: Critical → High → Medium → Low
 
 ---
 
