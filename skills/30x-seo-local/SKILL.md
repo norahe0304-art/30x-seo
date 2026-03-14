@@ -42,25 +42,55 @@ Ask user for:
 
 ---
 
-### Step 2: GBP Completeness Audit
+### Step 2: GBP Completeness Audit (Google Official 13-Point Playbook)
 
-Check every GBP field for completeness and optimization:
+Based on Google's official GBP Optimization Playbook (March 2026).
 
-| Field | Weight | Check |
-|-------|--------|-------|
-| Business name | Critical | Matches real name, no keyword stuffing |
-| Category (primary) | Critical | Most specific category available |
-| Categories (secondary) | High | 2-5 relevant additional categories |
-| Address | Critical | Accurate, matches website & citations |
-| Phone | Critical | Local number, matches website |
-| Website URL | Critical | Correct, uses tracking parameters |
-| Hours | High | Complete, including special hours |
-| Description | High | 750 chars, natural language, intent-rich |
-| Attributes | High | All relevant (WiFi, parking, outdoor, etc.) |
-| Products/Services | High | Complete list with descriptions |
-| Photos | High | 15+ quality photos, refreshed quarterly |
-| Q&A | Medium | 10-15 pre-populated entries |
-| Posts | Medium | Weekly cadence |
+| # | Field | Weight | Check |
+|---|-------|--------|-------|
+| 1 | **Business Information** | Critical | Accurate name (no keyword stuffing), address matches license, local phone |
+| 2 | **Business Category** | Critical | Most specific primary category from 4,100+ options. **Wrong category = ranking disaster** (documented case: #1 → #31 from wrong category) |
+| 3 | **Business Description** | High | 750 chars, concise overview of offerings + what makes you unique, natural language |
+| 4 | **Business Hours** | High | Complete including holidays/special hours. **Longer hours = ranking advantage** (24/7 via answering service outperforms limited hours) |
+| 5 | **Service Area** | High | Define geographical service region (service-area businesses) |
+| 6 | **Attributes** | High | All relevant (WiFi, parking, outdoor, wheelchair access, etc.) |
+| 7 | **Photos & Videos** | High | 15+ quality photos, refresh quarterly. **100+ photos = 520% more calls, 2700% more direction requests** |
+| 8 | **Google Posts** | High | Weekly cadence: updates, offers, events. Post 1-2x/week minimum — freshness is a top-tier ranking signal in 2026 |
+| 9 | **Social Links** | Medium | Link up to 7 social profiles (5 display). Google may show social posts in profile |
+| 10 | **Chat Links** | Medium | Add WhatsApp or SMS Chat for direct customer communication |
+| 11 | **Bookings & Orders** | Medium | Enable Reserve with Google, booking links, order buttons. **77% of consumers expect online booking** |
+| 12 | **Products/Services** | High | Complete list with descriptions. Add all pre-defined + custom services |
+| 13 | **Manage Reviews** | Critical | Actively monitor and respond to every review |
+
+#### Category Selection (Critical)
+
+Primary category is the single most impactful GBP field:
+- Choose from Google's 4,100+ options — pick the most specific match
+- Monitor category changes regularly (Google updates the list)
+- Verify competitors' primary categories for validation
+- **Wrong category = catastrophic ranking loss**
+
+#### Attributes to AVOID
+
+These attributes can **hide your reviews** from the profile:
+- ❌ "Onsite services" — removes review visibility
+- ❌ "Online appointment" — removes review visibility
+
+Only enable these if the booking functionality outweighs review visibility for your business.
+
+#### Reserve with Google
+
+Drive bookings directly from GBP without customers leaving Google:
+- Live in 88+ countries
+- Covers: beauty, home services, auto repair, fitness, healthcare, restaurants
+- Two options: **Custom Booking Link** (your own URL) or **Integrated Booking Partner** (Google partners)
+- 77% of consumers expect to book services online — missing this = losing conversions
+
+#### Landing Page Strategy
+
+- Use UTM codes on the GBP website URL to track traffic in GA4
+- **Do NOT link to a page that already ranks organically** — Google penalizes duplicate rankings
+- Link to a dedicated local landing page optimized for GBP traffic
 
 **Scoring**:
 ```
@@ -157,16 +187,23 @@ Check website for LocalBusiness schema markup:
 
 ### Step 5: Review Analysis & Strategy
 
+#### The 10-Review Threshold (Sterling Sky Research)
+
+- **10 reviews = minimum threshold** for ranking boost
+- After 10, **frequency matters more than total count**
+- Stagnant review counts hurt rankings vs. active competitors
+- Google formalized review request links and QR codes (late 2025) — use them
+
 #### Current State Assessment
 
-| Metric | Benchmark |
-|--------|-----------|
-| Total reviews | Category average in area |
-| Average rating | ≥4.2 stars |
-| Review velocity | ≥4 new reviews/month |
-| Owner response rate | 100% target |
-| Response time | <24 hours |
-| Review recency | Most recent <7 days |
+| Metric | Benchmark | Source |
+|--------|-----------|--------|
+| Total reviews | ≥10 minimum, then category avg | Sterling Sky |
+| Average rating | ≥4.2 stars | Industry standard |
+| Review velocity | Consistent weekly flow | Sterling Sky |
+| Owner response rate | 100% target | Google Playbook |
+| Response time | <24 hours | Google Playbook |
+| Review recency | Most recent <7 days | Best practice |
 
 #### Sentiment Mining
 
@@ -174,6 +211,7 @@ Extract recurring themes from reviews:
 - Positive attributes (what customers praise)
 - Negative patterns (what needs fixing)
 - Keywords customers use naturally → feed back into GBP description
+- Attribute-specific mentions ("great WiFi", "quiet workspace") → these feed Gemini Ask Maps matching
 
 #### Review Strategy Output
 
@@ -181,18 +219,22 @@ Extract recurring themes from reviews:
 ## Review Velocity Program
 
 ### Collection Touchpoints
-1. Post-purchase email (2 hours after)
-2. SMS follow-up (24 hours after)
-3. Receipt QR code → direct review link
-4. Staff verbal ask at checkout
+1. Google's official review request link (GBP dashboard → "Ask for reviews")
+2. QR code (Google's built-in generator) on receipts/signage
+3. Post-purchase email (2 hours after)
+4. SMS follow-up (24 hours after)
+5. Staff verbal ask at checkout
 
 ### Response Templates
 - Positive (5-star): Thank + reference specific detail + invite back
 - Mixed (3-4 star): Thank + acknowledge issue + describe fix + invite back
 - Negative (1-2 star): Apologize + take offline + describe resolution
 
+### Key Principle
+Frequency > quantity. 4 reviews/week beats 50 reviews once then silence.
+
 ### Target Metrics
-- Monthly new reviews: [X] (current: [Y])
+- Weekly new reviews: [X] (current: [Y])
 - Response rate: 100%
 - Response time: <24 hours
 ```
@@ -248,7 +290,32 @@ Strategy:
 
 ---
 
-### Step 7: Local Content Strategy
+### Step 7: AI Local Pack Reality (2026)
+
+Google is rolling out AI-generated local packs that fundamentally change visibility:
+
+| Traditional Local Pack | AI Local Pack (2026) |
+|----------------------|---------------------|
+| 3 businesses shown | **1-2 businesses shown** |
+| Call buttons visible | Call buttons replaced by images |
+| Broad business coverage | **Only 32% as many unique businesses** |
+| ~1% ad coverage | **22% ad coverage** (up from 1% in early 2025) |
+
+**What this means**:
+- Competition for the top 1-2 spots is now existential, not just beneficial
+- 68% fewer businesses get organic visibility in AI packs
+- Local Services Ads (LSAs) grew from 11% to 31% query coverage
+- Pure organic local strategy is no longer sufficient for competitive markets
+
+**Action items**:
+- GBP optimization must be flawless (no room for "good enough")
+- Consider Local Services Ads for competitive categories
+- Multi-location businesses have a structural advantage over single-location
+- Diversify traffic sources: YouTube, Reddit, social — don't depend solely on Maps
+
+---
+
+### Step 8: Local Content Strategy
 
 Website content that supports local search:
 
@@ -324,6 +391,48 @@ Generated: [Date]
 
 ---
 
+## Industry-Specific Guidance
+
+Google released industry-specific GBP Playbooks (March 2026). Apply these vertical optimizations:
+
+### Food & Drink Businesses
+- Menu data must be current and complete (add menu URL)
+- Enable online ordering + reservation links
+- Professional food photography is non-negotiable
+- Weekly posts on specials, seasonal menus, events
+
+### Service Businesses (plumbers, cleaners, HVAC, etc.)
+- Define service areas clearly (no physical address display if SAB)
+- Emphasize emergency availability and response times
+- List all certifications, licenses, insurance
+- Before/after project photos build visual credibility
+
+### Hotels & Accommodations
+- Class ratings and amenity lists
+- Room photos, lobby, facilities
+- Check-in/check-out times in hours
+- Enable Reserve with Google
+
+### Tours & Attractions
+- Seasonal hours and availability
+- Pricing tiers in products/services
+- Activity photos from real customers
+- Link to booking system
+
+---
+
+## GBP Pro Tips (Sterling Sky Research)
+
+| Tip | Why |
+|-----|-----|
+| Set **opening date** to oldest legitimate date | Builds credibility. Use company history, not just current location opening. Google may populate a random date if blank |
+| **Extend business hours** when possible | Google favors accessible businesses. 24/7 via answering service = ranking advantage |
+| **Do NOT link GBP to a page with existing organic rankings** | Google penalizes duplicate ranking — use a dedicated local page |
+| Remove "onsite services" and "online appointment" attributes | They hide review visibility from your profile |
+| Add **up to 7 social profiles** | Only 5 display. Google may show social posts. This is a secondary credibility layer for AI engines |
+
+---
+
 ## Integration with Other Skills
 
 | Related Skill | When to Use Together |
@@ -364,5 +473,15 @@ Test your business visibility by searching these patterns in Google Maps:
 ```
 
 Document what Gemini says. If your business is missing or described inaccurately, trace the gap back to a specific GBP field, review pattern, or website content issue.
+
+---
+
+## Sources (March 2026)
+
+- Google Official GBP Optimization Playbook (emailed March 13, 2026)
+- Google Official Industry Playbooks: Food & Drink, Service, Tours & Attractions, Hotels
+- Sterling Sky: "The State of Local SEO in 2026"
+- Sterling Sky: "#1 Checklist to Optimize Your Google Business Profile"
+- Google: Gemini Ask Maps + Immersive Navigation (announced March 12, 2026)
 
 [PROTOCOL]: Update this header on changes, then check CLAUDE.md
